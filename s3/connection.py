@@ -127,7 +127,7 @@ class S3Connection:
                 raise e
             if r.status < 200 or r.status > 299:
                 raise parseError(r.read())
-##            if not cmd == "GET":
-##                r.read()
+            if not cmd == "GET":
+                r.read()
             return r
         return f

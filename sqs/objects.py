@@ -43,13 +43,13 @@ class SQSQueue:
     def __repr__(self):
         return self.name
 
-    def clone(self):
-        """Clones the connection to the queue
-        
-        @return: New connection to the same queue
-        @rtype:  SQSQueue
-        """
-        return SQSQueue(self.url, self._sqs_conn.clone())
+##    def clone(self):
+##        """Clones the connection to the queue
+##        
+##        @return: New connection to the same queue
+##        @rtype:  SQSQueue
+##        """
+##        return SQSQueue(self.url, self._sqs_conn.clone())
 
 
 ##    def get_timeout(self):
