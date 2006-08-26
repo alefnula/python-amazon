@@ -3,6 +3,9 @@ from s3.errors import S3Error
 from s3.parsers import parseListKeys
 
 class S3Object(object):
+    """
+    S3Object class
+    """
     def __init__(self, key, data, metadata, last_modified=None, bucket=None):
         self.key = key
         self.data = data
@@ -34,7 +37,7 @@ class S3Object(object):
 
 class S3Bucket(object):
     """
-    S3Bucket object
+    S3Bucket class
     
     Behaves like a dictionary of keys in the bucket, with some additional methods.
     """
@@ -55,7 +58,7 @@ class S3Bucket(object):
         return self.name
 
 
-    def get(self, key, headers):
+    def get(self, key, headers={}):
         """
         Get an S3Object from the bucket.
         
@@ -76,11 +79,10 @@ class S3Bucket(object):
                 metadata[header[0][11:]] = header[1]
             elif header[0] == 'Last-Modified':
                 last_modified = header[1]
-        data = r.read()
         return S3Object(key, data, metadata, last_modified, self)
 
 
-    def head(self, key, headers):
+    def head(self, key, headers={}):
         """
         Get an object's headers from bucket.
 
@@ -127,7 +129,7 @@ class S3Bucket(object):
         return objects
 
 
-    def save(self, object, headers):
+    def save(self, object, headers={}):
         """
         Save an S3Object into bucket.
         
@@ -158,20 +160,6 @@ class S3Bucket(object):
                 self._request('DELETE', object.key)
             else:
                 self._request('DELETE', object)
-
-
-    def head(self, key, headers):
-        """
-        Get an object's headers from bucket.
-
-        @param key:     Key of the object
-        @type  key:     string
-        @param headers: Dictionary of additional headers
-        @type  headers: dict
-        @return:        Dictionary of object headers
-        @rtype:         dict
-        """
-        return dict(self._request('HEAD', key, headers=headers).getheaders())
 
 
     def keys(self, prefix=None, marker=None, max_keys=None, delimiter=None):
