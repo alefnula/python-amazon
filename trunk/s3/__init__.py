@@ -10,6 +10,7 @@ strings in the methods of the classes of S3Service and S3Bucket.
 """
 
 VERSION = '2006-03-01'
+DEFAULT_HOST = "s3.amazonaws.com"
 
 # TODO:
 #   + handle s3 object metadata
@@ -21,6 +22,8 @@ VERSION = '2006-03-01'
 from connection import S3Connection
 from service import S3Service
 from objects import S3Bucket, S3Object
+from generator import S3Generator
 from errors import S3Error
 
 Service = S3Service
+Generator = S3Generator

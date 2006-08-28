@@ -43,15 +43,6 @@ class SQSQueue:
     def __repr__(self):
         return self.name
 
-##    def clone(self):
-##        """Clones the connection to the queue
-##        
-##        @return: New connection to the same queue
-##        @rtype:  SQSQueue
-##        """
-##        return SQSQueue(self.url, self._sqs_conn.clone())
-
-
 ##    def get_timeout(self):
 ##        '''Get the visibility timeout for the queue
 ##        
@@ -63,11 +54,11 @@ class SQSQueue:
 ##        return parseTimeout(response.read())
 
 
-    def read(self, visibility_timeout=None):
+    def read(self, timeout=None):
         '''Returns a single message or None if queue is empty'''
         params = {}
-        if visibility_timeout != None:
-            params = {'VisibilityTimeout' : visibility_timeout}
+        if timeout != None:
+            params = {'VisibilityTimeout' : timeout}
         queue = self.id + '/front'
         response = self._sqs_conn.clone().get(queue=queue, params=params)
         return parseMessageRead(response.read())
