@@ -38,10 +38,22 @@ class S3Generator:
         self._expires = None
 
     def set_expires_in(self, expires_in):
+        """
+        Set relative expiration time from the url creation moment.
+        
+        @param expires_in: Relative expiration time
+        @type  expires_in: int
+        """
         self._expires_in = expires_in
         self._expires = None
 
     def set_expires(self, expires):
+        """
+        Set absolute expiration time.
+        
+        @param expires: Absolute expiration time
+        @type  expires: time.time()
+        """
         self._expires = expires
         self._expires_in = None
 
@@ -53,16 +65,50 @@ class S3Generator:
         @type  name:    string
         @param headers: Additional headers
         @type  headers: dict
-        @return:        Authenticated URL for creating bucket
+        @return:        Authenticated URL for creating a bucket
         @rtype:         string
         """
         return self._generate('PUT', bucket=name, headers=headers)
 
-    def list_bucket(self, bucket, params={}, headers={}):
+    def list_bucket(self, name, params={}, headers={}):
+        """
+        List a bucket's content.
+        
+        @param name:    Bucket's name
+        @type  name:    string
+        @param params:  Additional parameters
+        @type  params:  dict
+        @param headers: Additional headers
+        @type  headers: dict
+        @return:        Authenticated URL for listing bucket's content
+        @rtype:         string
+        """
         return self._generate('GET', bucket=bucket, params=params, headers=headers)
 
-    def delete_bucket(self, bucket, headers={}):
+    def delete_bucket(self, name, headers={}):
+        """
+        Delete a bucket.
+        
+        @param name:    Name of the bucket that should be deleted
+        @type  name:    string
+        @param headers: Additional headers
+        @type  headers: dict
+        @return:        Authenticated URL for delete a bucket
+        @rtype:         string
+        """
         return self._generate('DELETE', bucket=bucket, headers=headers)
+
+    def list_buckets(self, headers={}):
+        """
+        List all buckets
+        
+        @param headers: Additional headers
+        @type  headers: dict
+        @return:        Authenticated URL for listing all buckets
+        @rtype:         string
+        """
+        return self._generate('GET', headers=headers)
+
 
     def put(self, bucket, key, object, headers={}):
         headers.update(object.get_meta_for_headers())
@@ -74,23 +120,44 @@ class S3Generator:
     def delete(self, bucket, key, headers={}):
         return self._generate('DELETE', bucket=bucket, key=key, headers=headers)
 
-    def get_bucket_acl(self, bucket, headers={}):
-        return self.get_acl(bucket, None, headers)
+    def get_bucket_acl(self, name, headers={}):
+        """
+        Get acl information for a bucket.
+        
+        @param name:    Bucket name
+        @type  name:    string
+        @param headers: Additional headers
+        @type  headers: dict
+        @return:        Authenticated URL for getting acl information for a bucket
+        @rtype:         string
+        """
+        return self.get_acl(name, None, headers)
 
     def get_acl(self, bucket, key=None, headers={}):
+        """
+        Get acl information for an object.
+        
+        @param bucket:  Bucket's name
+        @type  bucket:  string
+        @param key:     Object's name
+        @type  key:     string
+        @param headers: Additional headers
+        @type  headers: dict
+        @return:        Authenticated URL for getting acl information for an object
+        """
         return self._generate('GET', acl=True, bucket=bucket, key=key, headers=headers)
 
-    def put_bucket_acl(self, bucket, acl_xml_document, headers={}):
-        return self.put_acl(bucket, '', acl_xml_document, headers)
+    def put_bucket_acl(self, name, acl_xml_document, headers={}):
+        return self.put_acl(name, '', acl_xml_document, headers)
 
     # don't really care what the doc is here.
     def put_acl(self, bucket, key, acl_xml_document, headers={}):
         return self._generate('PUT', acl=True, bucket=bucket, key=key, headers=headers)
 
-    def list_all_my_buckets(self, headers={}):
-        return self._generate('GET', headers=headers)
-
     def make_bare_url(self, bucket, key=''):
+        """
+        Make an unauthorised URL.
+        """
         return self.protocol + '://' + self.server_name + '/' + bucket + '/' + key
 
     def _auth_header_value(self, method, path, headers):
