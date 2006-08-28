@@ -6,13 +6,13 @@ import socket
 import urllib
 from time import gmtime, strftime
 
+import s3
 from s3.parsers import parseError
 
-DEFAULT_HOST = "s3.amazonaws.com"
 PORTS_BY_SECURITY = { True: 443, False: 80 }
 
 class S3Connection:
-    def __init__(self, pub_key, priv_key, secure=True, host=DEFAULT_HOST, port=None, debug=0):
+    def __init__(self, pub_key, priv_key, secure=True, host=s3.DEFAULT_HOST, port=None, debug=0):
         self._pub_key = pub_key
         self._priv_key = priv_key
         self._host = host
@@ -38,10 +38,10 @@ class S3Connection:
         return S3Connection(self._pub_key, self._priv_key, secure=self._secure, host=self._host, port=self._port, debug=self._debug)
 
 
-    def _auth_header_value(self, cmd, path, headers):
+    def _auth_header_value(self, method, path, headers):
         xamzs = [k for k in headers.keys() if k.startswith("x-amz-")]
         xamzs.sort()
-        auth_parts = [cmd,
+        auth_parts = [method,
                       headers.get("Content-MD5", ""),
                       headers.get("Content-Type", ""),
                       headers.get("Date", ""),]
@@ -53,13 +53,13 @@ class S3Connection:
             hmac.new(self._priv_key, auth_str, sha).digest()).strip()
         return "AWS %s:%s" % (self._pub_key, auth_str)
 
-    def _headers(self, cmd, path, length=None, headers=None):
+    def _headers(self, method, path, length=None, headers=None):
         if not headers:
             headers = {}
         headers["Date"] = strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
         if length is not None:
             headers["Content-Length"] = length
-        headers["Authorization"] = self._auth_header_value(cmd, path, headers)
+        headers["Authorization"] = self._auth_header_value(method, path, headers)
         return headers
 
     def _params(self, params):
@@ -86,7 +86,7 @@ class S3Connection:
         return length
 
     def __getattr__(self, attr):
-        cmd = attr.upper()
+        method = attr.upper()
         def f(bucket=None, obj=None, send_io=None, params=None,
               headers=None, new_connection=False):
             path = self._path(bucket, obj)
@@ -95,10 +95,10 @@ class S3Connection:
                 length = headers["Content-Length"]
             elif send_io is not None:
                 length = self._io_len(send_io)
-            headers = self._headers(cmd, path, length=length, headers=headers)
+            headers = self._headers(method, path, length=length, headers=headers)
             
             def do_c():
-                self._conn.putrequest(cmd, path + self._params(params))
+                self._conn.putrequest(method, path + self._params(params))
                 for k,v in headers.items():
                     self._conn.putheader(k, v)
                 self._conn.endheaders()
@@ -127,7 +127,7 @@ class S3Connection:
                 raise e
             if r.status < 200 or r.status > 299:
                 raise parseError(r.read())
-            if not cmd == "GET":
+            if not method == "GET":
                 r.read()
             return r
         return f

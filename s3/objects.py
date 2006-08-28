@@ -34,6 +34,15 @@ class S3Object(object):
             raise S3Error('No bucket selected', 'Object has no bucket associated with itself', self.key)
 
 
+    def get_meta_for_headers(self):
+        """
+        Returns a dictionary of metadata keys prepared for inserting them into headers.
+        """
+        headers = {}
+        for key in self.metadata:
+            headers['x-amz-meta-' + key] = self.metadata[key]
+        return headers
+
 
 class S3Bucket(object):
     """
