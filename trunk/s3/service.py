@@ -17,7 +17,7 @@ class S3Service:
         Get bucket with the exact name.
         
         @param name: The name of the bucket
-        @type name:  string
+        @type  name: string
         @return:     Bucket if exists, else None
         @rtype:      S3Bucket or None
         """
@@ -39,7 +39,7 @@ class S3Service:
         Create a bucket.
         
         @param name: Name for the new bucket
-        @type name:  string
+        @type  name: string
         @return:     Returns the newly created bucket
         @rtype:      S3Bucket
         """
