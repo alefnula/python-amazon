@@ -55,7 +55,14 @@ class SQSQueue:
 
 
     def read(self, timeout=None):
-        '''Returns a single message or None if queue is empty'''
+        '''
+        Returns a single message or None if queue is empty
+        
+        @param timeout: Message visibility timeout
+        @type  timeout: int
+        @return:        One SQSMessage from the front of the Queue
+        @rtype:         SQSMessage
+        '''
         params = {}
         if timeout != None:
             params = {'VisibilityTimeout' : timeout}
@@ -65,7 +72,14 @@ class SQSQueue:
 
 
     def write(self, message):
-        '''Add a single message to the queue'''
+        '''
+        Add a single message to the queue
+        
+        @param message: Message that should be added.
+        @type  message: SQSMessage
+        @return:        SQSMessage with assigned Queue
+        @rtype:         SQSMessage
+        '''
         message.queue = self
         headers = {'Content-Length':len(message)}
         queue = self.id + '/back'

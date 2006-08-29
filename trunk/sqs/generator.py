@@ -19,7 +19,7 @@ class SQSGenerator:
     Objects of this class are used for generating authenticated URLs for accessing
     Amazon's SQS service.
     """
-    def __init__(self, pub_key, priv_key, host=DEFAULT_HOST, port=None, secure=True):
+    def __init__(self, pub_key, priv_key, host=sqs.DEFAULT_HOST, port=None, secure=True):
         self._pub_key = pub_key
         self._priv_key = priv_key
         self._host = host
@@ -59,27 +59,33 @@ class SQSGenerator:
         self._expires_in = None
 
 
-    def _auth_header_value(self, method, path, headers):
-        stripped_path = path.split('?')[0]
-        # ...unless there is an acl parameter
-        if re.search("[&?]acl($|=|&)", path):
-            stipped_path += "?acl"
-        auth_parts = [method,
-                      headers.get("Content-MD5", ""),
-                      headers.get("Content-Type", DEFAULT_CONTENT_TYPE),
-                      headers.get("Date", time.strftime("%a, %d %b %Y %X GMT", time.gmtime())),
-                      stipped_path]
-        auth_str = "\n".join(auth_parts)
+    def _auth_header_value(self, action, timestamp):
+        auth_str = "%s%s" % (action, timestamp)
         auth_str = base64.encodestring(
             hmac.new(self._priv_key, auth_str, sha).digest()).strip()
         return urllib.quote_plus(auth_str)
+        
+##    def _auth_header_value(self, method, path, headers):
+##        stripped_path = path.split('?')[0]
+##        # ...unless there is an acl parameter
+##        if re.search("[&?]acl($|=|&)", path):
+##            stripped_path += "?acl"
+##        auth_parts = [method,
+##                      headers.get("Content-MD5", ""),
+##                      headers.get("Content-Type", ''),
+##                      headers.get("Date", ""), #time.strftime("%a, %d %b %Y %X GMT", time.gmtime(expires))), #time.gmtime())),
+##                      stripped_path]
+##        auth_str = "\n".join(auth_parts)
+##        auth_str = base64.encodestring(
+##            hmac.new(self._priv_key, auth_str, sha).digest()).strip()
+##        return urllib.quote_plus(auth_str)
 
 
     def _headers(self, method, path, length=None, headers=None, expires=None):
         if not headers:
             headers = {}
         if not headers.has_key('Date'):
-            headers["Date"] = str(expires)
+            headers["Date"] = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
         if not headers.has_key('AWS-Version'):
             headers['AWS-Version'] = sqs.VERSION
         if not headers.has_key('Content-Type'):
@@ -104,6 +110,7 @@ class SQSGenerator:
             p = arg_div + urllib.urlencode(params)
         return p
 
+
     def _path(self, queue=None, message=None, acl=False):
         if queue is None:
             path = "/"
@@ -126,12 +133,18 @@ class SQSGenerator:
         io.seek(o_pos, 0)
         return length
 
-    def _generate(self, queue=None, message=None, send_io=None, params=None, headers=None, acl=False):
+    def _jebote(self, auth_str):
+        auth_str = base64.encodestring(
+            hmac.new(self._priv_key, auth_str, sha).digest()).strip()
+        return urllib.quote_plus(auth_str)
+
+    def _generate(self, method, queue=None, message=None, send_io=None, params=None, headers=None, acl=False):
         expires = 0
         if self._expires_in != None:
             expires = int(time.time() + self._expires_in)
         elif self._expires != None:
             expires = int(self._expires)
+        expires_str = time.strftime("%Y-%m-%dT%XZ", time.gmtime(expires))
         path = self._path(queue, message, acl)
         length = None
         if isinstance(headers, dict) and headers.has_key("Content-Length"):
@@ -139,14 +152,96 @@ class SQSGenerator:
         elif send_io is not None:
             length = self._io_len(send_io)
         headers = self._headers(method, path, length=length, headers=headers, expires=expires)
-        signature = self._auth_header_value(method, path, headers)
+        signature = self._auth_header_value(params['Action'], expires_str)
         path += self._params(params, acl)
         if '?' in path:
             arg_div = '&'
         else:
             arg_div = '?'
-        query_part = "Signature=%s&Expires=%d&AWSAccessKeyId=%s&Version=%s&Timestamp=%s" % \
-                     (signature, expires, self._pub_key, sqs.VERSION,
-                      time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime()))
+        query_part = "Expires=%s&AWSAccessKeyId=%s&Version=%s&Signature=%s" % \
+                     (expires_str, self._pub_key, sqs.VERSION, signature)
 
         return self.protocol + '://' + self.server_name + path + arg_div + query_part
+
+
+    def create_queue(name, timeout=None):
+        """
+        Create a queue.
+        
+        @param name:    The name to use for the Queue created.
+                        The Queue name must be unique for all queues created by
+                        the given Access Key ID.
+        @type  name:    string
+        @param timeout: Default visibility timeout for this Queue.
+                        If this parameter is not included, the default value is
+                        set to 30 seconds
+        @type  timeout: int
+        @return:        Authenticated URL for creating a new Queue.
+        @rtype:         string
+        """
+        params = {
+            'Action'    : 'CreateQueue',
+            'QueueName' : name
+        }
+        if timeout:
+            params['DefaultVisibilityTimeout'] = timeout
+        return self._generate('GET', params=params)
+
+
+    def list_queues(self, prefix=None):
+        """
+        List all queues or queues with a certan prefix.
+        
+        @param prefix: This parameter can be used to filter results returned.
+                       When specified, only queues with queue names beginning
+                       with the specified string are returned.
+        @type  prefix: string
+        @return:       Authenticated URL for listing Queues.
+        @rtype:        string
+        """
+        params = { 'Action'    : 'ListQueues' }
+        if prefix:
+            params['QueueNamePrefix'] = prefix
+        return self._generate('GET', params=params)
+
+
+    def delete_queue(self, name):
+        params = { 'Action'    : 'DeleteQueue' }
+        return self._generate('GET', queue=name, params=params)
+
+
+    def send_message(self):
+        pass
+
+
+    def receave_message(self):
+        pass
+
+
+    def delete_message(self):
+        pass
+
+
+    def peek_message(self):
+        pass
+
+
+    def set_timeout(self):
+        pass
+
+
+    def get_timeout(self):
+        pass
+
+
+    def add_grant(self):
+        pass
+
+
+    def get_grant(self):
+        pass
+
+
+    def del_grant(self):
+        pass
+
