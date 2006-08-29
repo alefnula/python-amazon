@@ -30,7 +30,7 @@ class SQSMessage(object):
 
 
 
-class SQSQueue:
+class SQSQueue(object):
     def __init__(self, url, sqs_conn):
         self._sqs_conn = sqs_conn
         self.url = url

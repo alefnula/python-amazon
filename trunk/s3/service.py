@@ -2,9 +2,9 @@ from s3.connection import S3Connection
 from s3.objects import S3Bucket
 from s3.parsers import parseListBuckets, parseGetBucket, parseGetBucketNames
 
-class S3Service:
+class S3Service(object):
     """
-    S3 Service object
+    S3 Service class.
     
     Behaves like a dictionary of buckets, with some additional functions.
     """

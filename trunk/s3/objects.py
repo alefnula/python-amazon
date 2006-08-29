@@ -138,21 +138,21 @@ class S3Bucket(object):
         return objects
 
 
-    def save(self, object, headers={}):
+    def save(self, s3object, headers={}):
         """
         Save an S3Object into bucket.
         
-        @param object:  An S3Object that has to be saved
-        @type  object:  S3Object
-        @param headers: Dictionary of additional headers
-        @type  headers: dict
+        @param s3object: An S3Object that has to be saved
+        @type  s3object: S3Object
+        @param headers:  Dictionary of additional headers
+        @type  headers:  dict
         """
-        data = object.data
+        data = s3object.data
         if isinstance(data, str) or isinstance(data, unicode):
             data = StringIO(data)
-        for key in object.metadata:
-            headers['x-amz-meta-'+key] = object.metadata[key]
-        self._request('PUT', object.key, send_io=data, headers=headers)
+        for key in s3object.metadata:
+            headers['x-amz-meta-' + key] = s3object.metadata[key]
+        self._request('PUT', s3object.key, send_io=data, headers=headers)
 
 
     def delete(self, objects):
@@ -164,11 +164,11 @@ class S3Bucket(object):
         """
         if not isinstance(objects, list):
             objects = [objects,]
-        for object in objects:
-            if isinstance(object, S3Object):
-                self._request('DELETE', object.key)
+        for obj in objects:
+            if isinstance(obj, S3Object):
+                self._request('DELETE', obj.key)
             else:
-                self._request('DELETE', object)
+                self._request('DELETE', obj)
 
 
     def keys(self, prefix=None, marker=None, max_keys=None, delimiter=None):
@@ -231,8 +231,8 @@ class S3Bucket(object):
         return self.get(key)
 
 
-    def __delitem__(self, object):
+    def __delitem__(self, s3object):
         """
         Delete a key from bucket.
         """
-        self.delete(object)
+        self.delete(s3object)

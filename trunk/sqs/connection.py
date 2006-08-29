@@ -15,8 +15,9 @@ DEFAULT_CONTENT_TYPE = 'text/plain'
 PORTS_BY_SECURITY = { True: 443, False: 80 }
 
 class SQSConnection(object):
-    """SQS Connection object.
-    You shoud never use this object directly. User SQSService instead.
+    """SQS Connection class.
+    
+    You shoud never use this class directly. User SQSService instead.
     """
     def __init__(self, pub_key, priv_key, host=sqs.DEFAULT_HOST, port=None, secure=True, debug=0):
         self._pub_key = pub_key
@@ -88,7 +89,7 @@ class SQSConnection(object):
     def _path(self, queue=None, message=None):
         if queue is None:
             return "/"
-        queue = queue
+        queue = '/' + queue
         if message is None:
             return queue
         return queue + "/" + message

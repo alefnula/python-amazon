@@ -10,7 +10,7 @@ PORTS_BY_SECURITY = { True: 443, False: 80 }
 
 DEFAULT_EXPIRES_IN = 60
 
-class S3Generator:
+class S3Generator(object):
     """
     Generator class
     
@@ -86,7 +86,7 @@ class S3Generator:
         return urllib.quote_plus(auth_str)
 
 
-    def _headers(self, method, path, length=None, headers=None, expires=None):
+    def _headers(self, headers=None, length=None, expires=None):
         if not headers:
             headers = {}
         headers["Date"] = str(expires)
@@ -142,7 +142,7 @@ class S3Generator:
             length = headers["Content-Length"]
         elif send_io is not None:
             length = self._io_len(send_io)
-        headers = self._headers(method, path, length=length, headers=headers, expires=expires)
+        headers = self._headers(headers=headers, length=length, expires=expires)
         signature = self._auth_header_value(method, path, headers)
         path += self._params(params, acl)
         if '?' in path:
@@ -180,7 +180,7 @@ class S3Generator:
         @return:        Authenticated URL for listing bucket's content
         @rtype:         string
         """
-        return self._generate('GET', bucket=bucket, params=params, headers=headers)
+        return self._generate('GET', bucket=name, params=params, headers=headers)
 
     def delete_bucket(self, name, headers={}):
         """
@@ -193,7 +193,7 @@ class S3Generator:
         @return:        Authenticated URL for delete a bucket
         @rtype:         string
         """
-        return self._generate('DELETE', bucket=bucket, headers=headers)
+        return self._generate('DELETE', bucket=name, headers=headers)
 
     def list_buckets(self, headers={}):
         """
@@ -207,8 +207,8 @@ class S3Generator:
         return self._generate('GET', headers=headers)
 
 
-    def put(self, bucket, key, object, headers={}):
-        headers.update(object.get_meta_for_headers())
+    def put(self, bucket, key, obj, headers={}):
+        headers.update(obj.get_meta_for_headers())
         return self._generate('PUT', bucket=bucket, key=key, headers=headers)
 
     def get(self, bucket, key, headers={}):

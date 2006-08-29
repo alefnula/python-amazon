@@ -3,7 +3,9 @@ from sqs.objects import SQSQueue
 from sqs.parsers import parseQueueList, parseQueueCreation
 
 class SQSService(object):
-    """SQS Service object"""
+    """
+    SQS Service class
+    """
     def __init__(self, pub_key, priv_key):
         self._sqs_conn = SQSConnection(pub_key, priv_key)
 
@@ -16,8 +18,8 @@ class SQSService(object):
         @return:     Queue if exists, else None
         @rtype:      SQSQueue or None
         """
-        list = self.list(name)
-        for queue in list:
+        queues = self.list(name)
+        for queue in queues:
             if queue.name == name:
                 return queue
         return None

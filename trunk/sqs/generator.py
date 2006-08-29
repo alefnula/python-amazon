@@ -12,7 +12,7 @@ PORTS_BY_SECURITY = { True: 443, False: 80 }
 
 DEFAULT_EXPIRES_IN = 60
 
-class SQSGenerator:
+class SQSGenerator(object):
     """
     Generator class
     
@@ -81,7 +81,7 @@ class SQSGenerator:
 ##        return urllib.quote_plus(auth_str)
 
 
-    def _headers(self, method, path, length=None, headers=None, expires=None):
+    def _headers(self, headers=None, length=None):
         if not headers:
             headers = {}
         if not headers.has_key('Date'):
@@ -123,7 +123,6 @@ class SQSGenerator:
         return path
 
 
-
     def _io_len(self, io):
         if hasattr(io, "len"):
             return io.len
@@ -133,10 +132,6 @@ class SQSGenerator:
         io.seek(o_pos, 0)
         return length
 
-    def _jebote(self, auth_str):
-        auth_str = base64.encodestring(
-            hmac.new(self._priv_key, auth_str, sha).digest()).strip()
-        return urllib.quote_plus(auth_str)
 
     def _generate(self, method, queue=None, message=None, send_io=None, params=None, headers=None, acl=False):
         expires = 0
@@ -151,7 +146,7 @@ class SQSGenerator:
             length = headers["Content-Length"]
         elif send_io is not None:
             length = self._io_len(send_io)
-        headers = self._headers(method, path, length=length, headers=headers, expires=expires)
+        headers = self._headers(headers=headers, length=length)
         signature = self._auth_header_value(params['Action'], expires_str)
         path += self._params(params, acl)
         if '?' in path:
@@ -164,7 +159,7 @@ class SQSGenerator:
         return self.protocol + '://' + self.server_name + path + arg_div + query_part
 
 
-    def create_queue(name, timeout=None):
+    def create_queue(self, name, timeout=None):
         """
         Create a queue.
         
@@ -205,26 +200,102 @@ class SQSGenerator:
         return self._generate('GET', params=params)
 
 
-    def delete_queue(self, name):
-        params = { 'Action'    : 'DeleteQueue' }
-        return self._generate('GET', queue=name, params=params)
+    def delete_queue(self, queue_url):
+        """
+        Delete a queue.
+        
+        @param queue_url: Queue url
+        @type  queue_url: string
+        @return:          Authenticated URL for deleting queue
+        @rtype:           string
+        """
+        params = { 'Action' : 'DeleteQueue' }
+        return self._generate('GET', queue=queue_url, params=params)
 
 
-    def send_message(self):
-        pass
+    def send_message(self, queue_url, message):
+        """
+        Save a message into Queue.
+        
+        @param queue_url: URL for the Queue in which the message should be saved
+        @type  queue_url: string
+        @param message:   Message body
+        @type  message:   string
+        @return:          Authenticated URL for saving message into Queue
+        @rtype:           string
+        """
+        params = {
+            'Action' : 'SendMessage',
+            'MessageBody' : urllib.quote(message)
+        }
+        return self._generate('GET', queue=queue_url, params=params)
 
+    def receave_message(self, queue_url, number=None, timeout=None):
+        """
+        Get message(s) from Queue.
+        
+        @param queue_url: URL for the Queue from which the message should be
+                          relatived
+        @type  queue_url: string
+        @param number:    Maximum number of messages to return.
+                          If the number of messages in the queue is less than
+                          value specified by NumberOfMessages, then the number
+                          of messages returned is up to the number of messages
+                          in the queue. Not necessarily all the messages in the
+                          queue will be returned. If no value is provided, the
+                          default value of 1 is used.
+        @type  number:    int
+        @param timeout:   The duration, in seconds, that the messages are
+                          visible in the queue. If no value is specified, the
+                          default value for the queue is used
+        @type  timeout:   int
+        @return:          Authenticated URL for retreaving messages from Queue
+        @rtype:           string
+        """
+        params = { 'Action' : 'ReceiveMessage' }
+        if number: params['NumberOfMessages'] = number
+        if timeout: params['VisibilityTimeout'] = timeout
+        return self._generate('GET', queue=queue_url, params=params)
+        
 
-    def receave_message(self):
-        pass
+    def delete_message(self, queue_url, message_id):
+        """
+        Delete a message from Queue.
+        
+        @param queue_url:  URL for the Queue from which the message should be deleted
+        @type  queue_url:  string
+        @param message_id: The ID of the message to delete
+        @type  message_id: string
+        @return:           Authenticated URL for deleting message from Queue
+        @rtype:            string
+        """
+        params = {
+            'Action' : 'DeleteMessage',
+            'MessageId' : message_id
+        }
+        return self._generate('GET', queue=queue_url, params=params)
 
-
-    def delete_message(self):
-        pass
-
-
-    def peek_message(self):
-        pass
-
+    def peek_message(self, queue_url, message_id):
+        """
+        Returns a preview of the message specified in the MessageId parameter.
+        
+        The message is returned regardless of the VisibilityTimeout state on the
+        queue. The visibility state is not modified when PeekMessage is used,
+        thereby not affecting which messages get returned from a subsequent
+        ReceiveMessage request.
+        
+        @param queue_url:  URL for the Queue from which the message should be peeked
+        @type  queue_url:  string
+        @param message_id: The ID of the message to retreave
+        @type  message_id: string
+        @return:           Authenticated URL for retreaveing a message
+        @rtype:            string
+        """
+        params = {
+            'Action' : 'PeekMessage',
+            'MessageId' : message_id
+        }
+        return self._generate('GET', queue=queue_url, params=params)
 
     def set_timeout(self):
         pass
