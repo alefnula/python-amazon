@@ -89,7 +89,6 @@ class SQSConnection(object):
     def _path(self, queue=None, message=None):
         if queue is None:
             return "/"
-        queue = '/' + queue
         if message is None:
             return queue
         return queue + "/" + message

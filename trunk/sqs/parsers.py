@@ -22,9 +22,13 @@ def parseError(xml):
     code = root.find('Errors/Error/Code').text
     body = root.find('Errors/Error/Message').text
     if code == 'MissingParameter':
-        reason = root.find('MissingParameterName').text
+        missing_parameter = root.find('MissingParameterName')
+        if missing_parameter: reason = missing_parameter.text
+        else: reason = ''
     elif code == 'AccessFailure':
-        reason = root.find('ServiceName').text
+        service_name = root.find('ServiceName')
+        if service_name: reason = service_name.text
+        else: reason = ''
     else:
         reason = ''
     return SQSError(code, reason, body)
