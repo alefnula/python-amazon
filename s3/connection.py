@@ -11,7 +11,7 @@ from s3.parsers import parseError
 
 PORTS_BY_SECURITY = { True: 443, False: 80 }
 
-class S3Connection:
+class S3Connection(object):
     def __init__(self, pub_key, priv_key, secure=True, host=s3.DEFAULT_HOST, port=None, debug=0):
         self._pub_key = pub_key
         self._priv_key = priv_key
@@ -87,8 +87,7 @@ class S3Connection:
 
     def __getattr__(self, attr):
         method = attr.upper()
-        def f(bucket=None, obj=None, send_io=None, params=None,
-              headers=None, new_connection=False):
+        def f(bucket=None, obj=None, send_io=None, params=None, headers=None):
             path = self._path(bucket, obj)
             length = None
             if isinstance(headers, dict) and headers.has_key("Content-Length"):
