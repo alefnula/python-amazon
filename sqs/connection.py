@@ -10,7 +10,7 @@ import httplib
 import sqs
 from sqs.parsers import parseError
 
-DEFAULT_HOST = "queue.amazonaws.com"
+
 DEFAULT_CONTENT_TYPE = 'text/plain'
 PORTS_BY_SECURITY = { True: 443, False: 80 }
 
@@ -18,7 +18,7 @@ class SQSConnection(object):
     """SQS Connection object.
     You shoud never use this object directly. User SQSService instead.
     """
-    def __init__(self, pub_key, priv_key, host=DEFAULT_HOST, port=None, secure=True, debug=0):
+    def __init__(self, pub_key, priv_key, host=sqs.DEFAULT_HOST, port=None, secure=True, debug=0):
         self._pub_key = pub_key
         self._priv_key = priv_key
         self._host = host
