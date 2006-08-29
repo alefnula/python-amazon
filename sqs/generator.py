@@ -65,39 +65,24 @@ class SQSGenerator(object):
             hmac.new(self._priv_key, auth_str, sha).digest()).strip()
         return urllib.quote_plus(auth_str)
         
-##    def _auth_header_value(self, method, path, headers):
-##        stripped_path = path.split('?')[0]
-##        # ...unless there is an acl parameter
-##        if re.search("[&?]acl($|=|&)", path):
-##            stripped_path += "?acl"
-##        auth_parts = [method,
-##                      headers.get("Content-MD5", ""),
-##                      headers.get("Content-Type", ''),
-##                      headers.get("Date", ""), #time.strftime("%a, %d %b %Y %X GMT", time.gmtime(expires))), #time.gmtime())),
-##                      stripped_path]
-##        auth_str = "\n".join(auth_parts)
-##        auth_str = base64.encodestring(
-##            hmac.new(self._priv_key, auth_str, sha).digest()).strip()
-##        return urllib.quote_plus(auth_str)
 
-
-    def _headers(self, headers=None, length=None):
-        if not headers:
-            headers = {}
-        if not headers.has_key('Date'):
-            headers["Date"] = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
-        if not headers.has_key('AWS-Version'):
-            headers['AWS-Version'] = sqs.VERSION
-        if not headers.has_key('Content-Type'):
-            headers['Content-Type'] = DEFAULT_CONTENT_TYPE
-        if not headers.has_key('Content-MD5'):
-            headers['Content-MD5'] = ''
-        if not headers.has_key('Content-Length'):
-            if length is not None:
-                headers['Content-Length'] = length
-            else:
-                headers['Content-Length'] = 0
-        return headers
+##    def _headers(self, headers=None, length=None):
+##        if not headers:
+##            headers = {}
+##        if not headers.has_key('Date'):
+##            headers["Date"] = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
+##        if not headers.has_key('AWS-Version'):
+##            headers['AWS-Version'] = sqs.VERSION
+##        if not headers.has_key('Content-Type'):
+##            headers['Content-Type'] = DEFAULT_CONTENT_TYPE
+##        if not headers.has_key('Content-MD5'):
+##            headers['Content-MD5'] = ''
+##        if not headers.has_key('Content-Length'):
+##            if length is not None:
+##                headers['Content-Length'] = length
+##            else:
+##                headers['Content-Length'] = 0
+##        return headers
 
 
     def _params(self, params, acl=False):
@@ -123,14 +108,14 @@ class SQSGenerator(object):
         return path
 
 
-    def _io_len(self, io):
-        if hasattr(io, "len"):
-            return io.len
-        o_pos = io.tell()
-        io.seek(0, 2)
-        length = io.tell() - o_pos
-        io.seek(o_pos, 0)
-        return length
+##    def _io_len(self, io):
+##        if hasattr(io, "len"):
+##            return io.len
+##        o_pos = io.tell()
+##        io.seek(0, 2)
+##        length = io.tell() - o_pos
+##        io.seek(o_pos, 0)
+##        return length
 
 
     def _generate(self, method, queue=None, message=None, send_io=None, params=None, headers=None, acl=False):
@@ -141,12 +126,12 @@ class SQSGenerator(object):
             expires = int(self._expires)
         expires_str = time.strftime("%Y-%m-%dT%XZ", time.gmtime(expires))
         path = self._path(queue, message, acl)
-        length = None
-        if isinstance(headers, dict) and headers.has_key("Content-Length"):
-            length = headers["Content-Length"]
-        elif send_io is not None:
-            length = self._io_len(send_io)
-        headers = self._headers(headers=headers, length=length)
+##        length = None
+##        if isinstance(headers, dict) and headers.has_key("Content-Length"):
+##            length = headers["Content-Length"]
+##        elif send_io is not None:
+##            length = self._io_len(send_io)
+##        headers = self._headers(headers=headers, length=length)
         signature = self._auth_header_value(params['Action'], expires_str)
         path += self._params(params, acl)
         if '?' in path:
@@ -274,6 +259,7 @@ class SQSGenerator(object):
             'MessageId' : message_id
         }
         return self._generate('GET', queue=queue_url, params=params)
+
 
     def peek_message(self, queue_url, message_id):
         """
