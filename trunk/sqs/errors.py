@@ -6,7 +6,7 @@ class SQSError(Exception):
         self.body = body
 
     def __repr__(self):
-        return '%s: %s\n%s' % (self.status, self.reason, self.body)
+        return 'SQSError: %s - %s\n%s' % (self.status, self.reason, self.body)
 
     def __str__(self):
         return '%s: %s\n%s' % (self.status, self.reason, self.body)

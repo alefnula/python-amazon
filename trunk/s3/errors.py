@@ -6,7 +6,7 @@ class S3Error(Exception):
         self.resource = resource
     
     def __str__(self):
-        return '%s: %s\n%s' % (self.code, self.message, self.resource)
+        return 'S3Error: %s - %s\n%s' % (self.code, self.message, self.resource)
     
     def __repr__(self):
         return '%s: %s\n%s' % (self.code, self.message, self.resource)
