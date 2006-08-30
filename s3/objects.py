@@ -15,6 +15,12 @@ class S3Object(object):
         self.last_modified = last_modified
         self._bucket = bucket
     
+    def __repr__(self):
+        return self.key
+    
+    def __str__(self):
+        return self.key
+    
     def save(self):
         """
         Save a modified (or same) S3Object to the bucket associated with it.
