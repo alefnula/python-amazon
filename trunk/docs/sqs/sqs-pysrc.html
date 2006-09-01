@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>sqs</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;sqs
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="sqs-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="sqs-module.html">Package sqs</a></h1>
+<pre class="py-src">
+<span class="py-lineno"> 1</span>  <span class="py-line"><span id="link-0" class="py-name"><a title="sqs.VERSION" class="py-name" href="#" onclick="doclink('link-0', 'VERSION', 'Variable sqs.VERSION=sqs-module.html#VERSION'); return false;">VERSION</a></span></span> <span class="py-op">=</span> <span class="py-docstring">'2006-04-01'</span> </span>
+<span class="py-lineno"> 2</span>  <span class="py-line"><span id="link-1" class="py-name"><a title="sqs.DEFAULT_HOST" class="py-name" href="#" onclick="doclink('link-1', 'DEFAULT_HOST', 'Variable sqs.DEFAULT_HOST=sqs-module.html#DEFAULT_HOST'); return false;">DEFAULT_HOST</a></span></span> <span class="py-op">=</span> <span class="py-string">"queue.amazonaws.com"</span> </span>
+<span class="py-lineno"> 3</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 4</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-2" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-2', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-3" class="py-name"><a title="sqs.connection" class="py-name" href="#" onclick="doclink('link-3', 'connection', 'Module sqs.connection=sqs.connection-module.html'); return false;">connection</a></span></span> <span class="py-keyword">import</span> <span id="link-4" class="py-name"><a title="sqs.connection.SQSConnection" class="py-name" href="#" onclick="doclink('link-4', 'SQSConnection', 'Class sqs.connection.SQSConnection=sqs.connection.SQSConnection-class.html'); return false;">SQSConnection</a></span></span> </span>
+<span class="py-lineno"> 5</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-5" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-5', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-6" class="py-name"><a title="sqs.errors" class="py-name" href="#" onclick="doclink('link-6', 'errors', 'Module sqs.errors=sqs.errors-module.html'); return false;">errors</a></span></span> <span class="py-keyword">import</span> <span id="link-7" class="py-name"><a title="sqs.errors.SQSError" class="py-name" href="#" onclick="doclink('link-7', 'SQSError', 'Class sqs.errors.SQSError=sqs.errors.SQSError-class.html'); return false;">SQSError</a></span></span> </span>
+<span class="py-lineno"> 6</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-8" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-8', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-9" class="py-name"><a title="sqs.objects" class="py-name" href="#" onclick="doclink('link-9', 'objects', 'Module sqs.objects=sqs.objects-module.html'); return false;">objects</a></span></span> <span class="py-keyword">import</span> <span id="link-10" class="py-name"><a title="sqs.objects.SQSQueue" class="py-name" href="#" onclick="doclink('link-10', 'SQSQueue', 'Class sqs.objects.SQSQueue=sqs.objects.SQSQueue-class.html'); return false;">SQSQueue</a></span></span><span class="py-op">,</span> <span id="link-11" class="py-name"><a title="sqs.objects.SQSMessage" class="py-name" href="#" onclick="doclink('link-11', 'SQSMessage', 'Class sqs.objects.SQSMessage=sqs.objects.SQSMessage-class.html'); return false;">SQSMessage</a></span></span> </span>
+<span class="py-lineno"> 7</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-12" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-12', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-13" class="py-name"><a title="sqs.service" class="py-name" href="#" onclick="doclink('link-13', 'service', 'Module sqs.service=sqs.service-module.html'); return false;">service</a></span></span> <span class="py-keyword">import</span> <span id="link-14" class="py-name"><a title="sqs.service.SQSService" class="py-name" href="#" onclick="doclink('link-14', 'SQSService', 'Class sqs.service.SQSService=sqs.service.SQSService-class.html'); return false;">SQSService</a></span></span> </span>
+<span class="py-lineno"> 8</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-15" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-15', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-16" class="py-name"><a title="sqs.generator" class="py-name" href="#" onclick="doclink('link-16', 'generator', 'Module sqs.generator=sqs.generator-module.html'); return false;">generator</a></span></span> <span class="py-keyword">import</span> <span id="link-17" class="py-name"><a title="sqs.generator.SQSGenerator" class="py-name" href="#" onclick="doclink('link-17', 'SQSGenerator', 'Class sqs.generator.SQSGenerator=sqs.generator.SQSGenerator-class.html'); return false;">SQSGenerator</a></span></span> </span>
+<span class="py-lineno"> 9</span>  <span class="py-line"> </span>
+<span class="py-lineno">10</span>  <span class="py-line"><span class="py-name">Service</span> <span class="py-op">=</span> <span id="link-18" class="py-name"><a title="sqs.service.SQSService" class="py-name" href="#" onclick="doclink('link-18', 'SQSService', 'Class sqs.service.SQSService=sqs.service.SQSService-class.html'); return false;">SQSService</a></span></span> </span>
+<span class="py-lineno">11</span>  <span class="py-line"> </span><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha3 on Tue Aug 29 17:36:39 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
