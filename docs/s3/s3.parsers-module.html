@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>s3.parsers</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="s3-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="s3-module.html">Package&nbsp;s3</a> ::
+        Module&nbsp;parsers
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="s3.parsers-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module parsers</h1><span class="codelink"><a href="s3.parsers-pysrc.html">source&nbsp;code</a></span><br /><br />
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">S3Error</code>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.parsers-module.html#parseError" class="summary-sig-name">parseError</a>(<span class="summary-sig-arg">xml</span>)</span><br />
+      Parse the response XML if error occured, and creates an SQSError 
+      exception.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">S3Bucket</code>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.parsers-module.html#parseGetBucket" class="summary-sig-name">parseGetBucket</a>(<span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">xml</span>,
+        <span class="summary-sig-arg">connection</span>,
+        <span class="summary-sig-arg">default</span>)</span><br />
+      Parse the response XML for geting a bucket
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">list</code>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.parsers-module.html#parseGetBucketNames" class="summary-sig-name">parseGetBucketNames</a>(<span class="summary-sig-arg">xml</span>)</span><br />
+      Parse the response XML for geting a list of bucket names
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">list</code>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.parsers-module.html#parseListBuckets" class="summary-sig-name">parseListBuckets</a>(<span class="summary-sig-arg">xml</span>,
+        <span class="summary-sig-arg">connection</span>)</span><br />
+      Parse the response XML for listing buckets
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">list</code>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.parsers-module.html#parseListKeys" class="summary-sig-name">parseListKeys</a>(<span class="summary-sig-arg">xml</span>)</span><br />
+      Parse the response XML for listing objects in bucket
+  </td>
+</tr>
+</table>
+
+<br />
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <code class="summary-type">&nbsp;</code>
+  </td><td class="summary">
+    <a href="s3.parsers-module.html#xmlns">xmlns</a> = <code title="'http://s3.amazonaws.com/doc/2006-03-01/'">'http://s3.amazonaws.com/doc/2006-03-01/'</code>
+  </td>
+</tr>
+</table>
+
+<br />
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="parseError"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseError</span>(<span class="sig-arg">xml</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.parsers-pysrc.html#parseError">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Parse the response XML if error occured, and creates an SQSError 
+  exception.
+  <dl><dt></dt><dd>
+    <dl><dt>Parameters:</dt></dl>
+    <ul class="nomargin">
+        <li><strong class="pname"><code>xml</code></strong> (<code>string</code>) - The XML error response</li>
+    </ul>
+    <dl><dt>Returns: <code>S3Error</code></dt>
+        <dd>Returns the S3Error exception</dd></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="parseGetBucket"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseGetBucket</span>(<span class="sig-arg">name</span>,
+        <span class="sig-arg">xml</span>,
+        <span class="sig-arg">connection</span>,
+        <span class="sig-arg">default</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.parsers-pysrc.html#parseGetBucket">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Parse the response XML for geting a bucket
+  <dl><dt></dt><dd>
+    <dl><dt>Parameters:</dt></dl>
+    <ul class="nomargin">
+        <li><strong class="pname"><code>name</code></strong> (<code>string</code>) - The name of the bucket</li>
+        <li><strong class="pname"><code>xml</code></strong> (<code>string</code>) - The XML response</li>
+        <li><strong class="pname"><code>connection</code></strong> (<code>S3Connection</code>) - S3Connection to the server</li>
+        <li><strong class="pname"><code>default</code></strong> (<code>any</code>) - Default return value if bucket is not found</li>
+    </ul>
+    <dl><dt>Returns: <code>S3Bucket</code></dt>
+        <dd>Bucket if exist or default</dd></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="parseGetBucketNames"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseGetBucketNames</span>(<span class="sig-arg">xml</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.parsers-pysrc.html#parseGetBucketNames">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Parse the response XML for geting a list of bucket names
+  <dl><dt></dt><dd>
+    <dl><dt>Parameters:</dt></dl>
+    <ul class="nomargin">
+        <li><strong class="pname"><code>xml</code></strong> (<code>string</code>) - The XML response</li>
+    </ul>
+    <dl><dt>Returns: <code>list</code></dt>
+        <dd>list of bucket names</dd></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="parseListBuckets"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseListBuckets</span>(<span class="sig-arg">xml</span>,
+        <span class="sig-arg">connection</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.parsers-pysrc.html#parseListBuckets">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Parse the response XML for listing buckets
+  <dl><dt></dt><dd>
+    <dl><dt>Parameters:</dt></dl>
+    <ul class="nomargin">
+        <li><strong class="pname"><code>xml</code></strong> (<code>string</code>) - The XML response</li>
+        <li><strong class="pname"><code>connection</code></strong> (<code>S3Connection</code>) - S3Connection to the server</li>
+    </ul>
+    <dl><dt>Returns: <code>list</code></dt>
+        <dd>List of buckets</dd></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="parseListKeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parseListKeys</span>(<span class="sig-arg">xml</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.parsers-pysrc.html#parseListKeys">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Parse the response XML for listing objects in bucket
+  <dl><dt></dt><dd>
+    <dl><dt>Parameters:</dt></dl>
+    <ul class="nomargin">
+        <li><strong class="pname"><code>xml</code></strong> (<code>string</code>) - The XML response</li>
+    </ul>
+    <dl><dt>Returns: <code>list</code></dt>
+        <dd>List of object keys</dd></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="xmlns"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">xmlns</h3>
+  None
+  <dl><dt></dt><dd>
+    <dl><dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<span class="variable-quote">'</span>http://s3.amazonaws.com/doc/2006-03-01/<span class="variable-quote">'</span>                              
+      </pre></td></tr></table></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="s3-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha3 on Tue Aug 29 17:36:16 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

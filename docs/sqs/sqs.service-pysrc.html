@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>sqs.service</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="sqs-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="sqs-module.html">Package&nbsp;sqs</a> ::
+        Module&nbsp;service
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="sqs.service-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="sqs.service-module.html">Module sqs.service</a></h1>
+<pre class="py-src">
+<span class="py-lineno"> 1</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-0" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-0', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-1" class="py-name"><a title="sqs.connection" class="py-name" href="#" onclick="doclink('link-1', 'connection', 'Module sqs.connection=sqs.connection-module.html'); return false;">connection</a></span></span> <span class="py-keyword">import</span> <span id="link-2" class="py-name"><a title="sqs.connection.SQSConnection" class="py-name" href="#" onclick="doclink('link-2', 'SQSConnection', 'Class sqs.connection.SQSConnection=sqs.connection.SQSConnection-class.html'); return false;">SQSConnection</a></span></span> </span>
+<span class="py-lineno"> 2</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-3" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-3', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-4" class="py-name"><a title="sqs.objects" class="py-name" href="#" onclick="doclink('link-4', 'objects', 'Module sqs.objects=sqs.objects-module.html'); return false;">objects</a></span></span> <span class="py-keyword">import</span> <span id="link-5" class="py-name"><a title="sqs.objects.SQSQueue" class="py-name" href="#" onclick="doclink('link-5', 'SQSQueue', 'Class sqs.objects.SQSQueue=sqs.objects.SQSQueue-class.html'); return false;">SQSQueue</a></span></span> </span>
+<span class="py-lineno"> 3</span>  <span class="py-line"><span class="py-keyword">from</span> <span id="link-6" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-6', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-7" class="py-name"><a title="sqs.parsers" class="py-name" href="#" onclick="doclink('link-7', 'parsers', 'Module sqs.parsers=sqs.parsers-module.html'); return false;">parsers</a></span></span> <span class="py-keyword">import</span> <span id="link-8" class="py-name"><a title="sqs.parsers.parseQueueList" class="py-name" href="#" onclick="doclink('link-8', 'parseQueueList', 'Function sqs.parsers.parseQueueList()=sqs.parsers-module.html#parseQueueList'); return false;">parseQueueList</a></span></span><span class="py-op">,</span> <span id="link-9" class="py-name"><a title="sqs.parsers.parseQueueCreation" class="py-name" href="#" onclick="doclink('link-9', 'parseQueueCreation', 'Function sqs.parsers.parseQueueCreation()=sqs.parsers-module.html#parseQueueCreation'); return false;">parseQueueCreation</a></span></span> </span>
+<span class="py-lineno"> 4</span>  <span class="py-line"> </span>
+<a name="SQSService"></a><div id="SQSService-def"><span class="py-lineno"> 5</span> <a class="py-toggle" href="#" id="SQSService-toggle" onclick="toggle('SQSService'); return false;">-</a><span class="py-line"><span class="py-keyword">class</span> <a class="py-def-name" href="sqs.service.SQSService-class.html">SQSService</a><span class="py-op">(</span><span class="py-base-class">object</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="SQSService-expanded"><span class="py-lineno"> 6</span>  <span class="py-line">    <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 7</span>  <span class="py-line"><span class="py-docstring">    SQS Service class</span> </span>
+<span class="py-lineno"> 8</span>  <span class="py-line"><span class="py-docstring">    """</span> </span>
+<a name="SQSService.__init__"></a><div id="SQSService.__init__-def"><span class="py-lineno"> 9</span> <a class="py-toggle" href="#" id="SQSService.__init__-toggle" onclick="toggle('SQSService.__init__'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.service.SQSService-class.html#__init__">__init__</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">pub_key</span><span class="py-op">,</span> <span class="py-param">priv_key</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SQSService.__init__-expanded"><span class="py-lineno">10</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span> <span class="py-op">=</span> <span id="link-10" class="py-name"><a title="sqs.connection.SQSConnection" class="py-name" href="#" onclick="doclink('link-10', 'SQSConnection', 'Class sqs.connection.SQSConnection=sqs.connection.SQSConnection-class.html'); return false;">SQSConnection</a></span></span><span class="py-op">(</span><span class="py-name">pub_key</span><span class="py-op">,</span> <span class="py-name">priv_key</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">11</span>  <span class="py-line"> </span>
+<a name="SQSService.get"></a><div id="SQSService.get-def"><span class="py-lineno">12</span> <a class="py-toggle" href="#" id="SQSService.get-toggle" onclick="toggle('SQSService.get'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.service.SQSService-class.html#get">get</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">name</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService.get-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SQSService.get-expanded"><span class="py-lineno">13</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">14</span>  <span class="py-line"><span class="py-docstring">        Get queue with the exact name</span> </span>
+<span class="py-lineno">15</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">16</span>  <span class="py-line"><span class="py-docstring">        @param name: The name of the queue</span> </span>
+<span class="py-lineno">17</span>  <span class="py-line"><span class="py-docstring">        @type name:  string</span> </span>
+<span class="py-lineno">18</span>  <span class="py-line"><span class="py-docstring">        @return:     Queue if exists, else None</span> </span>
+<span class="py-lineno">19</span>  <span class="py-line"><span class="py-docstring">        @rtype:      SQSQueue or None</span> </span>
+<span class="py-lineno">20</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">21</span>  <span class="py-line">        <span class="py-name">queues</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-11" class="py-name"><a title="sqs.service.SQSService.list" class="py-name" href="#" onclick="doclink('link-11', 'list', 'Method sqs.service.SQSService.list()=sqs.service.SQSService-class.html#list'); return false;">list</a></span></span><span class="py-op">(</span><span class="py-name">name</span><span class="py-op">)</span> </span>
+<span class="py-lineno">22</span>  <span class="py-line">        <span class="py-keyword">for</span> <span class="py-name">queue</span> <span class="py-keyword">in</span> <span class="py-name">queues</span><span class="py-op">:</span> </span>
+<span class="py-lineno">23</span>  <span class="py-line">            <span class="py-keyword">if</span> <span class="py-name">queue</span><span class="py-op">.</span><span class="py-name">name</span> <span class="py-op">==</span> <span class="py-name">name</span><span class="py-op">:</span> </span>
+<span class="py-lineno">24</span>  <span class="py-line">                <span class="py-keyword">return</span> <span class="py-name">queue</span> </span>
+<span class="py-lineno">25</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">None</span> </span>
+</div><span class="py-lineno">26</span>  <span class="py-line"> </span>
+<span class="py-lineno">27</span>  <span class="py-line"> </span>
+<a name="SQSService.list"></a><div id="SQSService.list-def"><span class="py-lineno">28</span> <a class="py-toggle" href="#" id="SQSService.list-toggle" onclick="toggle('SQSService.list'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.service.SQSService-class.html#list">list</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">prefix</span><span class="py-op">=</span><span class="py-string">''</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService.list-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SQSService.list-expanded"><span class="py-lineno">29</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">30</span>  <span class="py-line"><span class="py-docstring">        List queues:</span> </span>
+<span class="py-lineno">31</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">32</span>  <span class="py-line"><span class="py-docstring">        @param prefix: Queue name prefix.</span> </span>
+<span class="py-lineno">33</span>  <span class="py-line"><span class="py-docstring">        @type prefix:  string</span> </span>
+<span class="py-lineno">34</span>  <span class="py-line"><span class="py-docstring">        @return:       List of queues that begin with prefix</span> </span>
+<span class="py-lineno">35</span>  <span class="py-line"><span class="py-docstring">        @rtype:        list</span> </span>
+<span class="py-lineno">36</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">37</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">prefix</span><span class="py-op">:</span> </span>
+<span class="py-lineno">38</span>  <span class="py-line">            <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span><span class="py-string">'QueueNamePrefix'</span> <span class="py-op">:</span> <span class="py-name">prefix</span> <span class="py-op">}</span> </span>
+<span class="py-lineno">39</span>  <span class="py-line">        <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno">40</span>  <span class="py-line">            <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span><span class="py-op">}</span> </span>
+<span class="py-lineno">41</span>  <span class="py-line">        <span class="py-name">response</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span><span class="py-op">.</span><span id="link-12" class="py-name"><a title="sqs.connection.SQSConnection.clone" class="py-name" href="#" onclick="doclink('link-12', 'clone', 'Method sqs.connection.SQSConnection.clone()=sqs.connection.SQSConnection-class.html#clone'); return false;">clone</a></span></span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">.</span><span id="link-13" class="py-name"><a title="sqs.service.SQSService.get" class="py-name" href="#" onclick="doclink('link-13', 'get', 'Method sqs.service.SQSService.get()=sqs.service.SQSService-class.html#get'); return false;">get</a></span></span><span class="py-op">(</span><span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+<span class="py-lineno">42</span>  <span class="py-line">        <span class="py-keyword">return</span> <span id="link-14" class="py-name"><a title="sqs.parsers.parseQueueList" class="py-name" href="#" onclick="doclink('link-14', 'parseQueueList', 'Function sqs.parsers.parseQueueList()=sqs.parsers-module.html#parseQueueList'); return false;">parseQueueList</a></span></span><span class="py-op">(</span><span class="py-name">response</span><span class="py-op">.</span><span id="link-15" class="py-name"><a title="sqs.objects.SQSQueue.read" class="py-name" href="#" onclick="doclink('link-15', 'read', 'Method sqs.objects.SQSQueue.read()=sqs.objects.SQSQueue-class.html#read'); return false;">read</a></span></span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">,</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">43</span>  <span class="py-line"> </span>
+<span class="py-lineno">44</span>  <span class="py-line"> </span>
+<a name="SQSService.create"></a><div id="SQSService.create-def"><span class="py-lineno">45</span> <a class="py-toggle" href="#" id="SQSService.create-toggle" onclick="toggle('SQSService.create'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.service.SQSService-class.html#create">create</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">name</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService.create-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SQSService.create-expanded"><span class="py-lineno">46</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">47</span>  <span class="py-line"><span class="py-docstring">        Create a queue</span> </span>
+<span class="py-lineno">48</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">49</span>  <span class="py-line"><span class="py-docstring">        @param name: Name for the new queue</span> </span>
+<span class="py-lineno">50</span>  <span class="py-line"><span class="py-docstring">        @type name:  string</span> </span>
+<span class="py-lineno">51</span>  <span class="py-line"><span class="py-docstring">        @return:     Returns the newly created queue</span> </span>
+<span class="py-lineno">52</span>  <span class="py-line"><span class="py-docstring">        @rtype:      SQSQueue</span> </span>
+<span class="py-lineno">53</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">54</span>  <span class="py-line">        <span class="py-name">response</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span><span class="py-op">.</span><span id="link-16" class="py-name"><a title="sqs.connection.SQSConnection.clone" class="py-name" href="#" onclick="doclink('link-16', 'clone', 'Method sqs.connection.SQSConnection.clone()=sqs.connection.SQSConnection-class.html#clone'); return false;">clone</a></span></span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">post</span><span class="py-op">(</span><span class="py-name">params</span><span class="py-op">=</span><span class="py-op">{</span><span class="py-string">'QueueName'</span> <span class="py-op">:</span> <span class="py-name">name</span><span class="py-op">}</span><span class="py-op">)</span> </span>
+<span class="py-lineno">55</span>  <span class="py-line">        <span class="py-keyword">return</span> <span id="link-17" class="py-name"><a title="sqs.parsers.parseQueueCreation" class="py-name" href="#" onclick="doclink('link-17', 'parseQueueCreation', 'Function sqs.parsers.parseQueueCreation()=sqs.parsers-module.html#parseQueueCreation'); return false;">parseQueueCreation</a></span></span><span class="py-op">(</span><span class="py-name">response</span><span class="py-op">.</span><span id="link-18" class="py-name"><a title="sqs.objects.SQSQueue.read" class="py-name" href="#" onclick="doclink('link-18', 'read', 'Method sqs.objects.SQSQueue.read()=sqs.objects.SQSQueue-class.html#read'); return false;">read</a></span></span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">,</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">56</span>  <span class="py-line"> </span>
+<span class="py-lineno">57</span>  <span class="py-line"> </span>
+<a name="SQSService.delete"></a><div id="SQSService.delete-def"><span class="py-lineno">58</span> <a class="py-toggle" href="#" id="SQSService.delete-toggle" onclick="toggle('SQSService.delete'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.service.SQSService-class.html#delete">delete</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">name</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSService.delete-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="SQSService.delete-expanded"><span class="py-lineno">59</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">60</span>  <span class="py-line"><span class="py-docstring">        Deletes a queue</span> </span>
+<span class="py-lineno">61</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">62</span>  <span class="py-line"><span class="py-docstring">        @param name: Name of the queue that should be deleted</span> </span>
+<span class="py-lineno">63</span>  <span class="py-line"><span class="py-docstring">        @type  name: string</span> </span>
+<span class="py-lineno">64</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">65</span>  <span class="py-line">        <span class="py-name">q</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-19" class="py-name"><a title="sqs.service.SQSService.get" class="py-name" href="#" onclick="doclink('link-19', 'get', 'Method sqs.service.SQSService.get()=sqs.service.SQSService-class.html#get'); return false;">get</a></span></span><span class="py-op">(</span><span class="py-name">name</span><span class="py-op">)</span> </span>
+<span class="py-lineno">66</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_sqs_conn</span><span class="py-op">.</span><span id="link-20" class="py-name"><a title="sqs.connection.SQSConnection.clone" class="py-name" href="#" onclick="doclink('link-20', 'clone', 'Method sqs.connection.SQSConnection.clone()=sqs.connection.SQSConnection-class.html#clone'); return false;">clone</a></span></span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">.</span><span id="link-21" class="py-name"><a title="sqs.objects.SQSQueue.delete
+sqs.service.SQSService.delete" class="py-name" href="#" onclick="doclink('link-21', 'delete', 'Method sqs.objects.SQSQueue.delete()=sqs.objects.SQSQueue-class.html#delete,Method sqs.service.SQSService.delete()=sqs.service.SQSService-class.html#delete'); return false;">delete</a></span></span><span class="py-op">(</span><span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">q</span><span class="py-op">.</span><span class="py-name">id</span><span class="py-op">)</span> </span>
+</div></div><span class="py-lineno">67</span>  <span class="py-line"> </span><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="sqs-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha3 on Tue Aug 29 17:36:39 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

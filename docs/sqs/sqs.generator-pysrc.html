@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>sqs.generator</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="sqs-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="sqs-module.html">Package&nbsp;sqs</a> ::
+        Module&nbsp;generator
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="sqs.generator-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="sqs.generator-module.html">Module sqs.generator</a></h1>
+<pre class="py-src">
+<span class="py-lineno">  1</span>  <span class="py-line"><span class="py-keyword">import</span> <span id="link-0" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-0', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span> </span>
+<span class="py-lineno">  2</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">re</span> </span>
+<span class="py-lineno">  3</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">sha</span> </span>
+<span class="py-lineno">  4</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">hmac</span> </span>
+<span class="py-lineno">  5</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">time</span> </span>
+<span class="py-lineno">  6</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">base64</span> </span>
+<span class="py-lineno">  7</span>  <span class="py-line"><span class="py-keyword">import</span> <span class="py-name">urllib</span> </span>
+<span class="py-lineno">  8</span>  <span class="py-line"> </span>
+<span class="py-lineno">  9</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 10</span>  <span class="py-line"><span id="link-1" class="py-name"><a title="sqs.connection.DEFAULT_CONTENT_TYPE
+sqs.generator.DEFAULT_CONTENT_TYPE" class="py-name" href="#" onclick="doclink('link-1', 'DEFAULT_CONTENT_TYPE', 'Variable sqs.connection.DEFAULT_CONTENT_TYPE=sqs.connection-module.html#DEFAULT_CONTENT_TYPE,Variable sqs.generator.DEFAULT_CONTENT_TYPE=sqs.generator-module.html#DEFAULT_CONTENT_TYPE'); return false;">DEFAULT_CONTENT_TYPE</a></span></span> <span class="py-op">=</span> <span class="py-string">'text/plain'</span> </span>
+<span class="py-lineno"> 11</span>  <span class="py-line"><span id="link-2" class="py-name"><a title="sqs.connection.PORTS_BY_SECURITY
+sqs.generator.PORTS_BY_SECURITY" class="py-name" href="#" onclick="doclink('link-2', 'PORTS_BY_SECURITY', 'Variable sqs.connection.PORTS_BY_SECURITY=sqs.connection-module.html#PORTS_BY_SECURITY,Variable sqs.generator.PORTS_BY_SECURITY=sqs.generator-module.html#PORTS_BY_SECURITY'); return false;">PORTS_BY_SECURITY</a></span></span> <span class="py-op">=</span> <span class="py-op">{</span> <span class="py-name">True</span><span class="py-op">:</span> <span class="py-number">443</span><span class="py-op">,</span> <span class="py-name">False</span><span class="py-op">:</span> <span class="py-number">80</span> <span class="py-op">}</span> </span>
+<span class="py-lineno"> 12</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 13</span>  <span class="py-line"><span id="link-3" class="py-name"><a title="sqs.generator.DEFAULT_EXPIRES_IN" class="py-name" href="#" onclick="doclink('link-3', 'DEFAULT_EXPIRES_IN', 'Variable sqs.generator.DEFAULT_EXPIRES_IN=sqs.generator-module.html#DEFAULT_EXPIRES_IN'); return false;">DEFAULT_EXPIRES_IN</a></span></span> <span class="py-op">=</span> <span class="py-number">60</span> </span>
+<span class="py-lineno"> 14</span>  <span class="py-line"> </span>
+<a name="SQSGenerator"></a><div id="SQSGenerator-def"><span class="py-lineno"> 15</span> <a class="py-toggle" href="#" id="SQSGenerator-toggle" onclick="toggle('SQSGenerator'); return false;">-</a><span class="py-line"><span class="py-keyword">class</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html">SQSGenerator</a><span class="py-op">(</span><span class="py-base-class">object</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SQSGenerator-expanded"><span class="py-lineno"> 16</span>  <span class="py-line">    <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 17</span>  <span class="py-line"><span class="py-docstring">    Generator class</span> </span>
+<span class="py-lineno"> 18</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 19</span>  <span class="py-line"><span class="py-docstring">    Objects of this class are used for generating authenticated URLs for accessing</span> </span>
+<span class="py-lineno"> 20</span>  <span class="py-line"><span class="py-docstring">    Amazon's SQS service.</span> </span>
+<span class="py-lineno"> 21</span>  <span class="py-line"><span class="py-docstring">    """</span> </span>
+<a name="SQSGenerator.__init__"></a><div id="SQSGenerator.__init__-def"><span class="py-lineno"> 22</span> <a class="py-toggle" href="#" id="SQSGenerator.__init__-toggle" onclick="toggle('SQSGenerator.__init__'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#__init__">__init__</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">pub_key</span><span class="py-op">,</span> <span class="py-param">priv_key</span><span class="py-op">,</span> <span class="py-param">host</span><span class="py-op">=</span><span id="link-4" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-4', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-5" class="py-name"><a title="sqs.DEFAULT_HOST" class="py-name" href="#" onclick="doclink('link-5', 'DEFAULT_HOST', 'Variable sqs.DEFAULT_HOST=sqs-module.html#DEFAULT_HOST'); return false;">DEFAULT_HOST</a></span></span><span class="py-op">,</span> <span class="py-param">port</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">secure</span><span class="py-op">=</span><span class="py-name">True</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.__init__-expanded"><span class="py-lineno"> 23</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_pub_key</span> <span class="py-op">=</span> <span class="py-name">pub_key</span> </span>
+<span class="py-lineno"> 24</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_priv_key</span> <span class="py-op">=</span> <span class="py-name">priv_key</span> </span>
+<span class="py-lineno"> 25</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_host</span> <span class="py-op">=</span> <span class="py-name">host</span> </span>
+<span class="py-lineno"> 26</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">port</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 27</span>  <span class="py-line">            <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_port</span> <span class="py-op">=</span> <span id="link-6" class="py-name"><a title="sqs.connection.PORTS_BY_SECURITY
+sqs.generator.PORTS_BY_SECURITY" class="py-name" href="#" onclick="doclink('link-6', 'PORTS_BY_SECURITY', 'Variable sqs.connection.PORTS_BY_SECURITY=sqs.connection-module.html#PORTS_BY_SECURITY,Variable sqs.generator.PORTS_BY_SECURITY=sqs.generator-module.html#PORTS_BY_SECURITY'); return false;">PORTS_BY_SECURITY</a></span></span><span class="py-op">[</span><span class="py-name">secure</span><span class="py-op">]</span> </span>
+<span class="py-lineno"> 28</span>  <span class="py-line">        <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 29</span>  <span class="py-line">            <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_port</span> <span class="py-op">=</span> <span class="py-name">port</span> </span>
+<span class="py-lineno"> 30</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-op">(</span><span class="py-name">secure</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 31</span>  <span class="py-line">            <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">protocol</span> <span class="py-op">=</span> <span class="py-string">'https'</span> </span>
+<span class="py-lineno"> 32</span>  <span class="py-line">        <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 33</span>  <span class="py-line">            <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">protocol</span> <span class="py-op">=</span> <span class="py-string">'http'</span> </span>
+<span class="py-lineno"> 34</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_secure</span> <span class="py-op">=</span> <span class="py-name">secure</span> </span>
+<span class="py-lineno"> 35</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">server_name</span> <span class="py-op">=</span> <span class="py-string">"%s:%d"</span> <span class="py-op">%</span> <span class="py-op">(</span><span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_host</span><span class="py-op">,</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_port</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 36</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires_in</span> <span class="py-op">=</span> <span id="link-7" class="py-name"><a title="sqs.generator.DEFAULT_EXPIRES_IN" class="py-name" href="#" onclick="doclink('link-7', 'DEFAULT_EXPIRES_IN', 'Variable sqs.generator.DEFAULT_EXPIRES_IN=sqs.generator-module.html#DEFAULT_EXPIRES_IN'); return false;">DEFAULT_EXPIRES_IN</a></span></span> </span>
+<span class="py-lineno"> 37</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires</span> <span class="py-op">=</span> <span class="py-name">None</span> </span>
+</div><span class="py-lineno"> 38</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 39</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.set_expires_in"></a><div id="SQSGenerator.set_expires_in-def"><span class="py-lineno"> 40</span> <a class="py-toggle" href="#" id="SQSGenerator.set_expires_in-toggle" onclick="toggle('SQSGenerator.set_expires_in'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#set_expires_in">set_expires_in</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">expires_in</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.set_expires_in-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.set_expires_in-expanded"><span class="py-lineno"> 41</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 42</span>  <span class="py-line"><span class="py-docstring">        Set relative expiration time from the url creation moment.</span> </span>
+<span class="py-lineno"> 43</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno"> 44</span>  <span class="py-line"><span class="py-docstring">        @param expires_in: Relative expiration time</span> </span>
+<span class="py-lineno"> 45</span>  <span class="py-line"><span class="py-docstring">        @type  expires_in: int</span> </span>
+<span class="py-lineno"> 46</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno"> 47</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires_in</span> <span class="py-op">=</span> <span class="py-name">expires_in</span> </span>
+<span class="py-lineno"> 48</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires</span> <span class="py-op">=</span> <span class="py-name">None</span> </span>
+</div><span class="py-lineno"> 49</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 50</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.set_expires"></a><div id="SQSGenerator.set_expires-def"><span class="py-lineno"> 51</span> <a class="py-toggle" href="#" id="SQSGenerator.set_expires-toggle" onclick="toggle('SQSGenerator.set_expires'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#set_expires">set_expires</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">expires</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.set_expires-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.set_expires-expanded"><span class="py-lineno"> 52</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 53</span>  <span class="py-line"><span class="py-docstring">        Set absolute expiration time.</span> </span>
+<span class="py-lineno"> 54</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno"> 55</span>  <span class="py-line"><span class="py-docstring">        @param expires: Absolute expiration time</span> </span>
+<span class="py-lineno"> 56</span>  <span class="py-line"><span class="py-docstring">        @type  expires: time.time()</span> </span>
+<span class="py-lineno"> 57</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno"> 58</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires</span> <span class="py-op">=</span> <span class="py-name">expires</span> </span>
+<span class="py-lineno"> 59</span>  <span class="py-line">        <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires_in</span> <span class="py-op">=</span> <span class="py-name">None</span> </span>
+</div><span class="py-lineno"> 60</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 61</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._auth_header_value"></a><div id="SQSGenerator._auth_header_value-def"><span class="py-lineno"> 62</span> <a class="py-toggle" href="#" id="SQSGenerator._auth_header_value-toggle" onclick="toggle('SQSGenerator._auth_header_value'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_auth_header_value">_auth_header_value</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">action</span><span class="py-op">,</span> <span class="py-param">timestamp</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._auth_header_value-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._auth_header_value-expanded"><span class="py-lineno"> 63</span>  <span class="py-line">        <span class="py-name">auth_str</span> <span class="py-op">=</span> <span class="py-string">"%s%s"</span> <span class="py-op">%</span> <span class="py-op">(</span><span class="py-name">action</span><span class="py-op">,</span> <span class="py-name">timestamp</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 64</span>  <span class="py-line">        <span class="py-name">auth_str</span> <span class="py-op">=</span> <span class="py-name">base64</span><span class="py-op">.</span><span class="py-name">encodestring</span><span class="py-op">(</span> </span>
+<span class="py-lineno"> 65</span>  <span class="py-line">            <span class="py-name">hmac</span><span class="py-op">.</span><span class="py-name">new</span><span class="py-op">(</span><span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_priv_key</span><span class="py-op">,</span> <span class="py-name">auth_str</span><span class="py-op">,</span> <span class="py-name">sha</span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">digest</span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">strip</span><span class="py-op">(</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 66</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">urllib</span><span class="py-op">.</span><span class="py-name">quote_plus</span><span class="py-op">(</span><span class="py-name">auth_str</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno"> 67</span>  <span class="py-line">         </span>
+<span class="py-lineno"> 68</span>  <span class="py-line"><span class="py-comment">##    def _auth_header_value(self, method, path, headers):</span> </span>
+<span class="py-lineno"> 69</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        stripped_path = path.split('?')[0]</span> </span>
+<span class="py-lineno"> 70</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        # ...unless there is an acl parameter</span> </span>
+<span class="py-lineno"> 71</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        if re.search("[&amp;?]acl($|=|&amp;)", path):</span> </span>
+<span class="py-lineno"> 72</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##            stripped_path += "?acl"</span> </span>
+<span class="py-lineno"> 73</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        auth_parts = [method,</span> </span>
+<span class="py-lineno"> 74</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##                      headers.get("Content-MD5", ""),</span> </span>
+<span class="py-lineno"> 75</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##                      headers.get("Content-Type", ''),</span> </span>
+<span class="py-lineno"> 76</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##                      headers.get("Date", ""), #time.strftime("%a, %d %b %Y %X GMT", time.gmtime(expires))), #time.gmtime())),</span> </span>
+<span class="py-lineno"> 77</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##                      stripped_path]</span> </span>
+<span class="py-lineno"> 78</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        auth_str = "\n".join(auth_parts)</span> </span>
+<span class="py-lineno"> 79</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        auth_str = base64.encodestring(</span> </span>
+<span class="py-lineno"> 80</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##            hmac.new(self._priv_key, auth_str, sha).digest()).strip()</span> </span>
+<span class="py-lineno"> 81</span>  <span class="py-line"><span class="py-comment"></span><span class="py-comment">##        return urllib.quote_plus(auth_str)</span> </span>
+<span class="py-lineno"> 82</span>  <span class="py-line"><span class="py-comment"></span> </span>
+<span class="py-lineno"> 83</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._headers"></a><div id="SQSGenerator._headers-def"><span class="py-lineno"> 84</span> <a class="py-toggle" href="#" id="SQSGenerator._headers-toggle" onclick="toggle('SQSGenerator._headers'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_headers">_headers</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">headers</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">length</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._headers-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._headers-expanded"><span class="py-lineno"> 85</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 86</span>  <span class="py-line">            <span class="py-name">headers</span> <span class="py-op">=</span> <span class="py-op">{</span><span class="py-op">}</span> </span>
+<span class="py-lineno"> 87</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">'Date'</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 88</span>  <span class="py-line">            <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">"Date"</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">time</span><span class="py-op">.</span><span class="py-name">strftime</span><span class="py-op">(</span><span class="py-string">"%a, %d %b %Y %H:%M:%S GMT"</span><span class="py-op">,</span> <span class="py-name">time</span><span class="py-op">.</span><span class="py-name">gmtime</span><span class="py-op">(</span><span class="py-op">)</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 89</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">'AWS-Version'</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 90</span>  <span class="py-line">            <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">'AWS-Version'</span><span class="py-op">]</span> <span class="py-op">=</span> <span id="link-8" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-8', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-9" class="py-name"><a title="sqs.VERSION" class="py-name" href="#" onclick="doclink('link-9', 'VERSION', 'Variable sqs.VERSION=sqs-module.html#VERSION'); return false;">VERSION</a></span></span> </span>
+<span class="py-lineno"> 91</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">'Content-Type'</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 92</span>  <span class="py-line">            <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">'Content-Type'</span><span class="py-op">]</span> <span class="py-op">=</span> <span id="link-10" class="py-name"><a title="sqs.connection.DEFAULT_CONTENT_TYPE
+sqs.generator.DEFAULT_CONTENT_TYPE" class="py-name" href="#" onclick="doclink('link-10', 'DEFAULT_CONTENT_TYPE', 'Variable sqs.connection.DEFAULT_CONTENT_TYPE=sqs.connection-module.html#DEFAULT_CONTENT_TYPE,Variable sqs.generator.DEFAULT_CONTENT_TYPE=sqs.generator-module.html#DEFAULT_CONTENT_TYPE'); return false;">DEFAULT_CONTENT_TYPE</a></span></span> </span>
+<span class="py-lineno"> 93</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">'Content-MD5'</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 94</span>  <span class="py-line">            <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">'Content-MD5'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-string">''</span> </span>
+<span class="py-lineno"> 95</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-keyword">not</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">'Content-Length'</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 96</span>  <span class="py-line">            <span class="py-keyword">if</span> <span class="py-name">length</span> <span class="py-keyword">is</span> <span class="py-keyword">not</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 97</span>  <span class="py-line">                <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">'Content-Length'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">length</span> </span>
+<span class="py-lineno"> 98</span>  <span class="py-line">            <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 99</span>  <span class="py-line">                <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">'Content-Length'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-number">0</span> </span>
+<span class="py-lineno">100</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">headers</span> </span>
+</div><span class="py-lineno">101</span>  <span class="py-line"> </span>
+<span class="py-lineno">102</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._params"></a><div id="SQSGenerator._params-def"><span class="py-lineno">103</span> <a class="py-toggle" href="#" id="SQSGenerator._params-toggle" onclick="toggle('SQSGenerator._params'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_params">_params</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">params</span><span class="py-op">,</span> <span class="py-param">acl</span><span class="py-op">=</span><span class="py-name">False</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._params-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._params-expanded"><span class="py-lineno">104</span>  <span class="py-line">        <span class="py-name">p</span> <span class="py-op">=</span> <span class="py-string">''</span> </span>
+<span class="py-lineno">105</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">params</span><span class="py-op">:</span> </span>
+<span class="py-lineno">106</span>  <span class="py-line">            <span class="py-keyword">if</span> <span class="py-name">acl</span><span class="py-op">:</span> </span>
+<span class="py-lineno">107</span>  <span class="py-line">                <span class="py-name">arg_div</span> <span class="py-op">=</span> <span class="py-string">'&amp;'</span> </span>
+<span class="py-lineno">108</span>  <span class="py-line">            <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno">109</span>  <span class="py-line">                <span class="py-name">arg_div</span> <span class="py-op">=</span> <span class="py-string">'?'</span> </span>
+<span class="py-lineno">110</span>  <span class="py-line">            <span class="py-name">p</span> <span class="py-op">=</span> <span class="py-name">arg_div</span> <span class="py-op">+</span> <span class="py-name">urllib</span><span class="py-op">.</span><span class="py-name">urlencode</span><span class="py-op">(</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+<span class="py-lineno">111</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">p</span> </span>
+</div><span class="py-lineno">112</span>  <span class="py-line"> </span>
+<span class="py-lineno">113</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._path"></a><div id="SQSGenerator._path-def"><span class="py-lineno">114</span> <a class="py-toggle" href="#" id="SQSGenerator._path-toggle" onclick="toggle('SQSGenerator._path'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_path">_path</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">message</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">acl</span><span class="py-op">=</span><span class="py-name">False</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._path-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._path-expanded"><span class="py-lineno">115</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">queue</span> <span class="py-keyword">is</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno">116</span>  <span class="py-line">            <span class="py-name">path</span> <span class="py-op">=</span> <span class="py-string">"/"</span> </span>
+<span class="py-lineno">117</span>  <span class="py-line">        <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno">118</span>  <span class="py-line">            <span class="py-name">path</span> <span class="py-op">=</span> <span class="py-string">'/'</span> <span class="py-op">+</span> <span class="py-name">queue</span> </span>
+<span class="py-lineno">119</span>  <span class="py-line">            <span class="py-keyword">if</span> <span class="py-name">message</span> <span class="py-keyword">is</span> <span class="py-keyword">not</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno">120</span>  <span class="py-line">                <span class="py-name">path</span> <span class="py-op">+=</span> <span class="py-string">'/'</span> <span class="py-op">+</span> <span class="py-name">message</span> </span>
+<span class="py-lineno">121</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">acl</span><span class="py-op">:</span> </span>
+<span class="py-lineno">122</span>  <span class="py-line">            <span class="py-name">path</span> <span class="py-op">+=</span> <span class="py-string">'?acl'</span> </span>
+<span class="py-lineno">123</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">path</span> </span>
+</div><span class="py-lineno">124</span>  <span class="py-line"> </span>
+<span class="py-lineno">125</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._io_len"></a><div id="SQSGenerator._io_len-def"><span class="py-lineno">126</span> <a class="py-toggle" href="#" id="SQSGenerator._io_len-toggle" onclick="toggle('SQSGenerator._io_len'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_io_len">_io_len</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">io</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._io_len-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._io_len-expanded"><span class="py-lineno">127</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">hasattr</span><span class="py-op">(</span><span class="py-name">io</span><span class="py-op">,</span> <span class="py-string">"len"</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno">128</span>  <span class="py-line">            <span class="py-keyword">return</span> <span class="py-name">io</span><span class="py-op">.</span><span class="py-name">len</span> </span>
+<span class="py-lineno">129</span>  <span class="py-line">        <span class="py-name">o_pos</span> <span class="py-op">=</span> <span class="py-name">io</span><span class="py-op">.</span><span class="py-name">tell</span><span class="py-op">(</span><span class="py-op">)</span> </span>
+<span class="py-lineno">130</span>  <span class="py-line">        <span class="py-name">io</span><span class="py-op">.</span><span class="py-name">seek</span><span class="py-op">(</span><span class="py-number">0</span><span class="py-op">,</span> <span class="py-number">2</span><span class="py-op">)</span> </span>
+<span class="py-lineno">131</span>  <span class="py-line">        <span class="py-name">length</span> <span class="py-op">=</span> <span class="py-name">io</span><span class="py-op">.</span><span class="py-name">tell</span><span class="py-op">(</span><span class="py-op">)</span> <span class="py-op">-</span> <span class="py-name">o_pos</span> </span>
+<span class="py-lineno">132</span>  <span class="py-line">        <span class="py-name">io</span><span class="py-op">.</span><span class="py-name">seek</span><span class="py-op">(</span><span class="py-name">o_pos</span><span class="py-op">,</span> <span class="py-number">0</span><span class="py-op">)</span> </span>
+<span class="py-lineno">133</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">length</span> </span>
+</div><span class="py-lineno">134</span>  <span class="py-line"> </span>
+<span class="py-lineno">135</span>  <span class="py-line"> </span>
+<a name="SQSGenerator._generate"></a><div id="SQSGenerator._generate-def"><span class="py-lineno">136</span> <a class="py-toggle" href="#" id="SQSGenerator._generate-toggle" onclick="toggle('SQSGenerator._generate'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#_generate">_generate</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">method</span><span class="py-op">,</span> <span class="py-param">queue</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">message</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">send_io</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">params</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">headers</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">acl</span><span class="py-op">=</span><span class="py-name">False</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator._generate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator._generate-expanded"><span class="py-lineno">137</span>  <span class="py-line">        <span class="py-name">expires</span> <span class="py-op">=</span> <span class="py-number">0</span> </span>
+<span class="py-lineno">138</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires_in</span> <span class="py-op">!=</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno">139</span>  <span class="py-line">            <span class="py-name">expires</span> <span class="py-op">=</span> <span class="py-name">int</span><span class="py-op">(</span><span class="py-name">time</span><span class="py-op">.</span><span class="py-name">time</span><span class="py-op">(</span><span class="py-op">)</span> <span class="py-op">+</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires_in</span><span class="py-op">)</span> </span>
+<span class="py-lineno">140</span>  <span class="py-line">        <span class="py-keyword">elif</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires</span> <span class="py-op">!=</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno">141</span>  <span class="py-line">            <span class="py-name">expires</span> <span class="py-op">=</span> <span class="py-name">int</span><span class="py-op">(</span><span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_expires</span><span class="py-op">)</span> </span>
+<span class="py-lineno">142</span>  <span class="py-line">        <span class="py-name">expires_str</span> <span class="py-op">=</span> <span class="py-name">time</span><span class="py-op">.</span><span class="py-name">strftime</span><span class="py-op">(</span><span class="py-string">"%Y-%m-%dT%XZ"</span><span class="py-op">,</span> <span class="py-name">time</span><span class="py-op">.</span><span class="py-name">gmtime</span><span class="py-op">(</span><span class="py-name">expires</span><span class="py-op">)</span><span class="py-op">)</span> </span>
+<span class="py-lineno">143</span>  <span class="py-line">        <span class="py-name">path</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-11" class="py-name"><a title="sqs.connection.SQSConnection._path
+sqs.generator.SQSGenerator._path" class="py-name" href="#" onclick="doclink('link-11', '_path', 'Method sqs.connection.SQSConnection._path()=sqs.connection.SQSConnection-class.html#_path,Method sqs.generator.SQSGenerator._path()=sqs.generator.SQSGenerator-class.html#_path'); return false;">_path</a></span></span><span class="py-op">(</span><span class="py-name">queue</span><span class="py-op">,</span> <span class="py-name">message</span><span class="py-op">,</span> <span class="py-name">acl</span><span class="py-op">)</span> </span>
+<span class="py-lineno">144</span>  <span class="py-line">        <span class="py-name">length</span> <span class="py-op">=</span> <span class="py-name">None</span> </span>
+<span class="py-lineno">145</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">isinstance</span><span class="py-op">(</span><span class="py-name">headers</span><span class="py-op">,</span> <span class="py-name">dict</span><span class="py-op">)</span> <span class="py-keyword">and</span> <span class="py-name">headers</span><span class="py-op">.</span><span class="py-name">has_key</span><span class="py-op">(</span><span class="py-string">"Content-Length"</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+<span class="py-lineno">146</span>  <span class="py-line">            <span class="py-name">length</span> <span class="py-op">=</span> <span class="py-name">headers</span><span class="py-op">[</span><span class="py-string">"Content-Length"</span><span class="py-op">]</span> </span>
+<span class="py-lineno">147</span>  <span class="py-line">        <span class="py-keyword">elif</span> <span class="py-name">send_io</span> <span class="py-keyword">is</span> <span class="py-keyword">not</span> <span class="py-name">None</span><span class="py-op">:</span> </span>
+<span class="py-lineno">148</span>  <span class="py-line">            <span class="py-name">length</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-12" class="py-name"><a title="sqs.connection.SQSConnection._io_len
+sqs.generator.SQSGenerator._io_len" class="py-name" href="#" onclick="doclink('link-12', '_io_len', 'Method sqs.connection.SQSConnection._io_len()=sqs.connection.SQSConnection-class.html#_io_len,Method sqs.generator.SQSGenerator._io_len()=sqs.generator.SQSGenerator-class.html#_io_len'); return false;">_io_len</a></span></span><span class="py-op">(</span><span class="py-name">send_io</span><span class="py-op">)</span> </span>
+<span class="py-lineno">149</span>  <span class="py-line">        <span class="py-name">headers</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-13" class="py-name"><a title="sqs.connection.SQSConnection._headers
+sqs.generator.SQSGenerator._headers" class="py-name" href="#" onclick="doclink('link-13', '_headers', 'Method sqs.connection.SQSConnection._headers()=sqs.connection.SQSConnection-class.html#_headers,Method sqs.generator.SQSGenerator._headers()=sqs.generator.SQSGenerator-class.html#_headers'); return false;">_headers</a></span></span><span class="py-op">(</span><span class="py-name">headers</span><span class="py-op">=</span><span class="py-name">headers</span><span class="py-op">,</span> <span class="py-name">length</span><span class="py-op">=</span><span class="py-name">length</span><span class="py-op">)</span> </span>
+<span class="py-lineno">150</span>  <span class="py-line">        <span class="py-name">signature</span> <span class="py-op">=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-14" class="py-name"><a title="sqs.connection.SQSConnection._auth_header_value
+sqs.generator.SQSGenerator._auth_header_value" class="py-name" href="#" onclick="doclink('link-14', '_auth_header_value', 'Method sqs.connection.SQSConnection._auth_header_value()=sqs.connection.SQSConnection-class.html#_auth_header_value,Method sqs.generator.SQSGenerator._auth_header_value()=sqs.generator.SQSGenerator-class.html#_auth_header_value'); return false;">_auth_header_value</a></span></span><span class="py-op">(</span><span class="py-name">params</span><span class="py-op">[</span><span class="py-string">'Action'</span><span class="py-op">]</span><span class="py-op">,</span> <span class="py-name">expires_str</span><span class="py-op">)</span> </span>
+<span class="py-lineno">151</span>  <span class="py-line">        <span class="py-name">path</span> <span class="py-op">+=</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-15" class="py-name"><a title="sqs.connection.SQSConnection._params
+sqs.generator.SQSGenerator._params" class="py-name" href="#" onclick="doclink('link-15', '_params', 'Method sqs.connection.SQSConnection._params()=sqs.connection.SQSConnection-class.html#_params,Method sqs.generator.SQSGenerator._params()=sqs.generator.SQSGenerator-class.html#_params'); return false;">_params</a></span></span><span class="py-op">(</span><span class="py-name">params</span><span class="py-op">,</span> <span class="py-name">acl</span><span class="py-op">)</span> </span>
+<span class="py-lineno">152</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-string">'?'</span> <span class="py-keyword">in</span> <span class="py-name">path</span><span class="py-op">:</span> </span>
+<span class="py-lineno">153</span>  <span class="py-line">            <span class="py-name">arg_div</span> <span class="py-op">=</span> <span class="py-string">'&amp;'</span> </span>
+<span class="py-lineno">154</span>  <span class="py-line">        <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno">155</span>  <span class="py-line">            <span class="py-name">arg_div</span> <span class="py-op">=</span> <span class="py-string">'?'</span> </span>
+<span class="py-lineno">156</span>  <span class="py-line">        <span class="py-name">query_part</span> <span class="py-op">=</span> <span class="py-string">"Expires=%s&amp;AWSAccessKeyId=%s&amp;Version=%s&amp;Signature=%s"</span> <span class="py-op">%</span> \ </span>
+<span class="py-lineno">157</span>  <span class="py-line">                     <span class="py-op">(</span><span class="py-name">expires_str</span><span class="py-op">,</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">_pub_key</span><span class="py-op">,</span> <span id="link-16" class="py-name"><a title="sqs" class="py-name" href="#" onclick="doclink('link-16', 'sqs', 'Package sqs=sqs-module.html'); return false;">sqs</a></span></span><span class="py-op">.</span><span id="link-17" class="py-name"><a title="sqs.VERSION" class="py-name" href="#" onclick="doclink('link-17', 'VERSION', 'Variable sqs.VERSION=sqs-module.html#VERSION'); return false;">VERSION</a></span></span><span class="py-op">,</span> <span class="py-name">signature</span><span class="py-op">)</span> </span>
+<span class="py-lineno">158</span>  <span class="py-line"> </span>
+<span class="py-lineno">159</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">protocol</span> <span class="py-op">+</span> <span class="py-string">'://'</span> <span class="py-op">+</span> <span class="py-name">self</span><span class="py-op">.</span><span class="py-name">server_name</span> <span class="py-op">+</span> <span class="py-name">path</span> <span class="py-op">+</span> <span class="py-name">arg_div</span> <span class="py-op">+</span> <span class="py-name">query_part</span> </span>
+</div><span class="py-lineno">160</span>  <span class="py-line"> </span>
+<span class="py-lineno">161</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.create_queue"></a><div id="SQSGenerator.create_queue-def"><span class="py-lineno">162</span> <a class="py-toggle" href="#" id="SQSGenerator.create_queue-toggle" onclick="toggle('SQSGenerator.create_queue'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#create_queue">create_queue</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">name</span><span class="py-op">,</span> <span class="py-param">timeout</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.create_queue-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.create_queue-expanded"><span class="py-lineno">163</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">164</span>  <span class="py-line"><span class="py-docstring">        Create a queue.</span> </span>
+<span class="py-lineno">165</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">166</span>  <span class="py-line"><span class="py-docstring">        @param name:    The name to use for the Queue created.</span> </span>
+<span class="py-lineno">167</span>  <span class="py-line"><span class="py-docstring">                        The Queue name must be unique for all queues created by</span> </span>
+<span class="py-lineno">168</span>  <span class="py-line"><span class="py-docstring">                        the given Access Key ID.</span> </span>
+<span class="py-lineno">169</span>  <span class="py-line"><span class="py-docstring">        @type  name:    string</span> </span>
+<span class="py-lineno">170</span>  <span class="py-line"><span class="py-docstring">        @param timeout: Default visibility timeout for this Queue.</span> </span>
+<span class="py-lineno">171</span>  <span class="py-line"><span class="py-docstring">                        If this parameter is not included, the default value is</span> </span>
+<span class="py-lineno">172</span>  <span class="py-line"><span class="py-docstring">                        set to 30 seconds</span> </span>
+<span class="py-lineno">173</span>  <span class="py-line"><span class="py-docstring">        @type  timeout: int</span> </span>
+<span class="py-lineno">174</span>  <span class="py-line"><span class="py-docstring">        @return:        Authenticated URL for creating a new Queue.</span> </span>
+<span class="py-lineno">175</span>  <span class="py-line"><span class="py-docstring">        @rtype:         string</span> </span>
+<span class="py-lineno">176</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">177</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> </span>
+<span class="py-lineno">178</span>  <span class="py-line">            <span class="py-string">'Action'</span>    <span class="py-op">:</span> <span class="py-string">'CreateQueue'</span><span class="py-op">,</span> </span>
+<span class="py-lineno">179</span>  <span class="py-line">            <span class="py-string">'QueueName'</span> <span class="py-op">:</span> <span class="py-name">name</span> </span>
+<span class="py-lineno">180</span>  <span class="py-line">        <span class="py-op">}</span> </span>
+<span class="py-lineno">181</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">timeout</span><span class="py-op">:</span> </span>
+<span class="py-lineno">182</span>  <span class="py-line">            <span class="py-name">params</span><span class="py-op">[</span><span class="py-string">'DefaultVisibilityTimeout'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">timeout</span> </span>
+<span class="py-lineno">183</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-18" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-18', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">184</span>  <span class="py-line"> </span>
+<span class="py-lineno">185</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.list_queues"></a><div id="SQSGenerator.list_queues-def"><span class="py-lineno">186</span> <a class="py-toggle" href="#" id="SQSGenerator.list_queues-toggle" onclick="toggle('SQSGenerator.list_queues'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#list_queues">list_queues</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">prefix</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.list_queues-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.list_queues-expanded"><span class="py-lineno">187</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">188</span>  <span class="py-line"><span class="py-docstring">        List all queues or queues with a certan prefix.</span> </span>
+<span class="py-lineno">189</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">190</span>  <span class="py-line"><span class="py-docstring">        @param prefix: This parameter can be used to filter results returned.</span> </span>
+<span class="py-lineno">191</span>  <span class="py-line"><span class="py-docstring">                       When specified, only queues with queue names beginning</span> </span>
+<span class="py-lineno">192</span>  <span class="py-line"><span class="py-docstring">                       with the specified string are returned.</span> </span>
+<span class="py-lineno">193</span>  <span class="py-line"><span class="py-docstring">        @type  prefix: string</span> </span>
+<span class="py-lineno">194</span>  <span class="py-line"><span class="py-docstring">        @return:       Authenticated URL for listing Queues.</span> </span>
+<span class="py-lineno">195</span>  <span class="py-line"><span class="py-docstring">        @rtype:        string</span> </span>
+<span class="py-lineno">196</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">197</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> <span class="py-string">'Action'</span>    <span class="py-op">:</span> <span class="py-string">'ListQueues'</span> <span class="py-op">}</span> </span>
+<span class="py-lineno">198</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">prefix</span><span class="py-op">:</span> </span>
+<span class="py-lineno">199</span>  <span class="py-line">            <span class="py-name">params</span><span class="py-op">[</span><span class="py-string">'QueueNamePrefix'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">prefix</span> </span>
+<span class="py-lineno">200</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-19" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-19', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">201</span>  <span class="py-line"> </span>
+<span class="py-lineno">202</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.delete_queue"></a><div id="SQSGenerator.delete_queue-def"><span class="py-lineno">203</span> <a class="py-toggle" href="#" id="SQSGenerator.delete_queue-toggle" onclick="toggle('SQSGenerator.delete_queue'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#delete_queue">delete_queue</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue_url</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.delete_queue-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.delete_queue-expanded"><span class="py-lineno">204</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">205</span>  <span class="py-line"><span class="py-docstring">        Delete a queue.</span> </span>
+<span class="py-lineno">206</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">207</span>  <span class="py-line"><span class="py-docstring">        @param queue_url: Queue url</span> </span>
+<span class="py-lineno">208</span>  <span class="py-line"><span class="py-docstring">        @type  queue_url: string</span> </span>
+<span class="py-lineno">209</span>  <span class="py-line"><span class="py-docstring">        @return:          Authenticated URL for deleting queue</span> </span>
+<span class="py-lineno">210</span>  <span class="py-line"><span class="py-docstring">        @rtype:           string</span> </span>
+<span class="py-lineno">211</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">212</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> <span class="py-string">'Action'</span> <span class="py-op">:</span> <span class="py-string">'DeleteQueue'</span> <span class="py-op">}</span> </span>
+<span class="py-lineno">213</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-20" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-20', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">queue_url</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">214</span>  <span class="py-line"> </span>
+<span class="py-lineno">215</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.send_message"></a><div id="SQSGenerator.send_message-def"><span class="py-lineno">216</span> <a class="py-toggle" href="#" id="SQSGenerator.send_message-toggle" onclick="toggle('SQSGenerator.send_message'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#send_message">send_message</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue_url</span><span class="py-op">,</span> <span class="py-param">message</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.send_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.send_message-expanded"><span class="py-lineno">217</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">218</span>  <span class="py-line"><span class="py-docstring">        Save a message into Queue.</span> </span>
+<span class="py-lineno">219</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">220</span>  <span class="py-line"><span class="py-docstring">        @param queue_url: URL for the Queue in which the message should be saved</span> </span>
+<span class="py-lineno">221</span>  <span class="py-line"><span class="py-docstring">        @type  queue_url: string</span> </span>
+<span class="py-lineno">222</span>  <span class="py-line"><span class="py-docstring">        @param message:   Message body</span> </span>
+<span class="py-lineno">223</span>  <span class="py-line"><span class="py-docstring">        @type  message:   string</span> </span>
+<span class="py-lineno">224</span>  <span class="py-line"><span class="py-docstring">        @return:          Authenticated URL for saving message into Queue</span> </span>
+<span class="py-lineno">225</span>  <span class="py-line"><span class="py-docstring">        @rtype:           string</span> </span>
+<span class="py-lineno">226</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">227</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> </span>
+<span class="py-lineno">228</span>  <span class="py-line">            <span class="py-string">'Action'</span> <span class="py-op">:</span> <span class="py-string">'SendMessage'</span><span class="py-op">,</span> </span>
+<span class="py-lineno">229</span>  <span class="py-line">            <span class="py-string">'MessageBody'</span> <span class="py-op">:</span> <span class="py-name">urllib</span><span class="py-op">.</span><span class="py-name">quote</span><span class="py-op">(</span><span class="py-name">message</span><span class="py-op">)</span> </span>
+<span class="py-lineno">230</span>  <span class="py-line">        <span class="py-op">}</span> </span>
+<span class="py-lineno">231</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-21" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-21', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">queue_url</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">232</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.receave_message"></a><div id="SQSGenerator.receave_message-def"><span class="py-lineno">233</span> <a class="py-toggle" href="#" id="SQSGenerator.receave_message-toggle" onclick="toggle('SQSGenerator.receave_message'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#receave_message">receave_message</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue_url</span><span class="py-op">,</span> <span class="py-param">number</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">,</span> <span class="py-param">timeout</span><span class="py-op">=</span><span class="py-name">None</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.receave_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.receave_message-expanded"><span class="py-lineno">234</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">235</span>  <span class="py-line"><span class="py-docstring">        Get message(s) from Queue.</span> </span>
+<span class="py-lineno">236</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">237</span>  <span class="py-line"><span class="py-docstring">        @param queue_url: URL for the Queue from which the message should be</span> </span>
+<span class="py-lineno">238</span>  <span class="py-line"><span class="py-docstring">                          relatived</span> </span>
+<span class="py-lineno">239</span>  <span class="py-line"><span class="py-docstring">        @type  queue_url: string</span> </span>
+<span class="py-lineno">240</span>  <span class="py-line"><span class="py-docstring">        @param number:    Maximum number of messages to return.</span> </span>
+<span class="py-lineno">241</span>  <span class="py-line"><span class="py-docstring">                          If the number of messages in the queue is less than</span> </span>
+<span class="py-lineno">242</span>  <span class="py-line"><span class="py-docstring">                          value specified by NumberOfMessages, then the number</span> </span>
+<span class="py-lineno">243</span>  <span class="py-line"><span class="py-docstring">                          of messages returned is up to the number of messages</span> </span>
+<span class="py-lineno">244</span>  <span class="py-line"><span class="py-docstring">                          in the queue. Not necessarily all the messages in the</span> </span>
+<span class="py-lineno">245</span>  <span class="py-line"><span class="py-docstring">                          queue will be returned. If no value is provided, the</span> </span>
+<span class="py-lineno">246</span>  <span class="py-line"><span class="py-docstring">                          default value of 1 is used.</span> </span>
+<span class="py-lineno">247</span>  <span class="py-line"><span class="py-docstring">        @type  number:    int</span> </span>
+<span class="py-lineno">248</span>  <span class="py-line"><span class="py-docstring">        @param timeout:   The duration, in seconds, that the messages are</span> </span>
+<span class="py-lineno">249</span>  <span class="py-line"><span class="py-docstring">                          visible in the queue. If no value is specified, the</span> </span>
+<span class="py-lineno">250</span>  <span class="py-line"><span class="py-docstring">                          default value for the queue is used</span> </span>
+<span class="py-lineno">251</span>  <span class="py-line"><span class="py-docstring">        @type  timeout:   int</span> </span>
+<span class="py-lineno">252</span>  <span class="py-line"><span class="py-docstring">        @return:          Authenticated URL for retreaving messages from Queue</span> </span>
+<span class="py-lineno">253</span>  <span class="py-line"><span class="py-docstring">        @rtype:           string</span> </span>
+<span class="py-lineno">254</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">255</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> <span class="py-string">'Action'</span> <span class="py-op">:</span> <span class="py-string">'ReceiveMessage'</span> <span class="py-op">}</span> </span>
+<span class="py-lineno">256</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">number</span><span class="py-op">:</span> <span class="py-name">params</span><span class="py-op">[</span><span class="py-string">'NumberOfMessages'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">number</span> </span>
+<span class="py-lineno">257</span>  <span class="py-line">        <span class="py-keyword">if</span> <span class="py-name">timeout</span><span class="py-op">:</span> <span class="py-name">params</span><span class="py-op">[</span><span class="py-string">'VisibilityTimeout'</span><span class="py-op">]</span> <span class="py-op">=</span> <span class="py-name">timeout</span> </span>
+<span class="py-lineno">258</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-22" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-22', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">queue_url</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">259</span>  <span class="py-line">         </span>
+<span class="py-lineno">260</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.delete_message"></a><div id="SQSGenerator.delete_message-def"><span class="py-lineno">261</span> <a class="py-toggle" href="#" id="SQSGenerator.delete_message-toggle" onclick="toggle('SQSGenerator.delete_message'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#delete_message">delete_message</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue_url</span><span class="py-op">,</span> <span class="py-param">message_id</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.delete_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.delete_message-expanded"><span class="py-lineno">262</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">263</span>  <span class="py-line"><span class="py-docstring">        Delete a message from Queue.</span> </span>
+<span class="py-lineno">264</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">265</span>  <span class="py-line"><span class="py-docstring">        @param queue_url:  URL for the Queue from which the message should be deleted</span> </span>
+<span class="py-lineno">266</span>  <span class="py-line"><span class="py-docstring">        @type  queue_url:  string</span> </span>
+<span class="py-lineno">267</span>  <span class="py-line"><span class="py-docstring">        @param message_id: The ID of the message to delete</span> </span>
+<span class="py-lineno">268</span>  <span class="py-line"><span class="py-docstring">        @type  message_id: string</span> </span>
+<span class="py-lineno">269</span>  <span class="py-line"><span class="py-docstring">        @return:           Authenticated URL for deleting message from Queue</span> </span>
+<span class="py-lineno">270</span>  <span class="py-line"><span class="py-docstring">        @rtype:            string</span> </span>
+<span class="py-lineno">271</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">272</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> </span>
+<span class="py-lineno">273</span>  <span class="py-line">            <span class="py-string">'Action'</span> <span class="py-op">:</span> <span class="py-string">'DeleteMessage'</span><span class="py-op">,</span> </span>
+<span class="py-lineno">274</span>  <span class="py-line">            <span class="py-string">'MessageId'</span> <span class="py-op">:</span> <span class="py-name">message_id</span> </span>
+<span class="py-lineno">275</span>  <span class="py-line">        <span class="py-op">}</span> </span>
+<span class="py-lineno">276</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-23" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-23', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">queue_url</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">277</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.peek_message"></a><div id="SQSGenerator.peek_message-def"><span class="py-lineno">278</span> <a class="py-toggle" href="#" id="SQSGenerator.peek_message-toggle" onclick="toggle('SQSGenerator.peek_message'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#peek_message">peek_message</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">,</span> <span class="py-param">queue_url</span><span class="py-op">,</span> <span class="py-param">message_id</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.peek_message-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.peek_message-expanded"><span class="py-lineno">279</span>  <span class="py-line">        <span class="py-docstring">"""</span> </span>
+<span class="py-lineno">280</span>  <span class="py-line"><span class="py-docstring">        Returns a preview of the message specified in the MessageId parameter.</span> </span>
+<span class="py-lineno">281</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">282</span>  <span class="py-line"><span class="py-docstring">        The message is returned regardless of the VisibilityTimeout state on the</span> </span>
+<span class="py-lineno">283</span>  <span class="py-line"><span class="py-docstring">        queue. The visibility state is not modified when PeekMessage is used,</span> </span>
+<span class="py-lineno">284</span>  <span class="py-line"><span class="py-docstring">        thereby not affecting which messages get returned from a subsequent</span> </span>
+<span class="py-lineno">285</span>  <span class="py-line"><span class="py-docstring">        ReceiveMessage request.</span> </span>
+<span class="py-lineno">286</span>  <span class="py-line"><span class="py-docstring">        </span> </span>
+<span class="py-lineno">287</span>  <span class="py-line"><span class="py-docstring">        @param queue_url:  URL for the Queue from which the message should be peeked</span> </span>
+<span class="py-lineno">288</span>  <span class="py-line"><span class="py-docstring">        @type  queue_url:  string</span> </span>
+<span class="py-lineno">289</span>  <span class="py-line"><span class="py-docstring">        @param message_id: The ID of the message to retreave</span> </span>
+<span class="py-lineno">290</span>  <span class="py-line"><span class="py-docstring">        @type  message_id: string</span> </span>
+<span class="py-lineno">291</span>  <span class="py-line"><span class="py-docstring">        @return:           Authenticated URL for retreaveing a message</span> </span>
+<span class="py-lineno">292</span>  <span class="py-line"><span class="py-docstring">        @rtype:            string</span> </span>
+<span class="py-lineno">293</span>  <span class="py-line"><span class="py-docstring">        """</span> </span>
+<span class="py-lineno">294</span>  <span class="py-line">        <span class="py-name">params</span> <span class="py-op">=</span> <span class="py-op">{</span> </span>
+<span class="py-lineno">295</span>  <span class="py-line">            <span class="py-string">'Action'</span> <span class="py-op">:</span> <span class="py-string">'PeekMessage'</span><span class="py-op">,</span> </span>
+<span class="py-lineno">296</span>  <span class="py-line">            <span class="py-string">'MessageId'</span> <span class="py-op">:</span> <span class="py-name">message_id</span> </span>
+<span class="py-lineno">297</span>  <span class="py-line">        <span class="py-op">}</span> </span>
+<span class="py-lineno">298</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">self</span><span class="py-op">.</span><span id="link-24" class="py-name"><a title="sqs.generator.SQSGenerator._generate" class="py-name" href="#" onclick="doclink('link-24', '_generate', 'Method sqs.generator.SQSGenerator._generate()=sqs.generator.SQSGenerator-class.html#_generate'); return false;">_generate</a></span></span><span class="py-op">(</span><span class="py-string">'GET'</span><span class="py-op">,</span> <span class="py-name">queue</span><span class="py-op">=</span><span class="py-name">queue_url</span><span class="py-op">,</span> <span class="py-name">params</span><span class="py-op">=</span><span class="py-name">params</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno">299</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.set_timeout"></a><div id="SQSGenerator.set_timeout-def"><span class="py-lineno">300</span> <a class="py-toggle" href="#" id="SQSGenerator.set_timeout-toggle" onclick="toggle('SQSGenerator.set_timeout'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#set_timeout">set_timeout</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.set_timeout-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.set_timeout-expanded"><span class="py-lineno">301</span>  <span class="py-line">        <span class="py-keyword">pass</span> </span>
+</div><span class="py-lineno">302</span>  <span class="py-line"> </span>
+<span class="py-lineno">303</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.get_timeout"></a><div id="SQSGenerator.get_timeout-def"><span class="py-lineno">304</span> <a class="py-toggle" href="#" id="SQSGenerator.get_timeout-toggle" onclick="toggle('SQSGenerator.get_timeout'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#get_timeout">get_timeout</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.get_timeout-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.get_timeout-expanded"><span class="py-lineno">305</span>  <span class="py-line">        <span class="py-keyword">pass</span> </span>
+</div><span class="py-lineno">306</span>  <span class="py-line"> </span>
+<span class="py-lineno">307</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.add_grant"></a><div id="SQSGenerator.add_grant-def"><span class="py-lineno">308</span> <a class="py-toggle" href="#" id="SQSGenerator.add_grant-toggle" onclick="toggle('SQSGenerator.add_grant'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#add_grant">add_grant</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.add_grant-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.add_grant-expanded"><span class="py-lineno">309</span>  <span class="py-line">        <span class="py-keyword">pass</span> </span>
+</div><span class="py-lineno">310</span>  <span class="py-line"> </span>
+<span class="py-lineno">311</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.get_grant"></a><div id="SQSGenerator.get_grant-def"><span class="py-lineno">312</span> <a class="py-toggle" href="#" id="SQSGenerator.get_grant-toggle" onclick="toggle('SQSGenerator.get_grant'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#get_grant">get_grant</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.get_grant-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.get_grant-expanded"><span class="py-lineno">313</span>  <span class="py-line">        <span class="py-keyword">pass</span> </span>
+</div><span class="py-lineno">314</span>  <span class="py-line"> </span>
+<span class="py-lineno">315</span>  <span class="py-line"> </span>
+<a name="SQSGenerator.del_grant"></a><div id="SQSGenerator.del_grant-def"><span class="py-lineno">316</span> <a class="py-toggle" href="#" id="SQSGenerator.del_grant-toggle" onclick="toggle('SQSGenerator.del_grant'); return false;">-</a><span class="py-line">    <span class="py-keyword">def</span> <a class="py-def-name" href="sqs.generator.SQSGenerator-class.html#del_grant">del_grant</a><span class="py-op">(</span><span class="py-param">self</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="SQSGenerator.del_grant-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SQSGenerator.del_grant-expanded"><span class="py-lineno">317</span>  <span class="py-line">        <span class="py-keyword">pass</span> </span>
+</div></div><span class="py-lineno">318</span>  <span class="py-line"> </span><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="sqs-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha3 on Tue Aug 29 17:36:38 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

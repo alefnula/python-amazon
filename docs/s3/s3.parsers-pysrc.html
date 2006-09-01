@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>s3.parsers</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="s3-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="s3-module.html">Package&nbsp;s3</a> ::
+        Module&nbsp;parsers
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="s3.parsers-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="s3.parsers-module.html">Module s3.parsers</a></h1>
+<pre class="py-src">
+<span class="py-lineno">  1</span>  <span class="py-line"><span class="py-keyword">try</span><span class="py-op">:</span> </span>
+<span class="py-lineno">  2</span>  <span class="py-line">    <span class="py-keyword">import</span> <span class="py-name">cElementTree</span> <span class="py-name">as</span> <span class="py-name">et</span> </span>
+<span class="py-lineno">  3</span>  <span class="py-line"><span class="py-keyword">except</span><span class="py-op">:</span> </span>
+<span class="py-lineno">  4</span>  <span class="py-line">    <span class="py-keyword">from</span> <span class="py-name">elementtree</span> <span class="py-keyword">import</span> <span class="py-name">ElementTree</span> <span class="py-name">as</span> <span class="py-name">et</span> </span>
+<span class="py-lineno">  5</span>  <span class="py-line"> </span>
+<span class="py-lineno">  6</span>  <span class="py-line"><span class="py-keyword">import</span> <span id="link-0" class="py-name"><a title="s3" class="py-name" href="#" onclick="doclink('link-0', 's3', 'Package s3=s3-module.html'); return false;">s3</a></span></span> </span>
+<span class="py-lineno">  7</span>  <span class="py-line"> </span>
+<span class="py-lineno">  8</span>  <span class="py-line"> </span>
+<span class="py-lineno">  9</span>  <span class="py-line"><span id="link-1" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-1', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span> <span class="py-op">=</span> <span class="py-string">'http://s3.amazonaws.com/doc/'</span> <span class="py-op">+</span> <span id="link-2" class="py-name"><a title="s3" class="py-name" href="#" onclick="doclink('link-2', 's3', 'Package s3=s3-module.html'); return false;">s3</a></span></span><span class="py-op">.</span><span id="link-3" class="py-name"><a title="s3.VERSION" class="py-name" href="#" onclick="doclink('link-3', 'VERSION', 'Variable s3.VERSION=s3-module.html#VERSION'); return false;">VERSION</a></span></span> <span class="py-op">+</span> <span class="py-string">'/'</span> </span>
+<span class="py-lineno"> 10</span>  <span class="py-line"> </span>
+<a name="parseError"></a><div id="parseError-def"><span class="py-lineno"> 11</span> <a class="py-toggle" href="#" id="parseError-toggle" onclick="toggle('parseError'); return false;">-</a><span class="py-line"><span class="py-keyword">def</span> <a class="py-def-name" href="s3.parsers-module.html#parseError">parseError</a><span class="py-op">(</span><span class="py-param">xml</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="parseError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parseError-expanded"><span class="py-lineno"> 12</span>  <span class="py-line">    <span class="py-docstring">'''</span> </span>
+<span class="py-lineno"> 13</span>  <span class="py-line"><span class="py-docstring">    Parse the response XML if error occured, and creates an SQSError exception.</span> </span>
+<span class="py-lineno"> 14</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 15</span>  <span class="py-line"><span class="py-docstring">    @param xml: The XML error response</span> </span>
+<span class="py-lineno"> 16</span>  <span class="py-line"><span class="py-docstring">    @type  xml: string</span> </span>
+<span class="py-lineno"> 17</span>  <span class="py-line"><span class="py-docstring">    @return:    Returns the S3Error exception</span> </span>
+<span class="py-lineno"> 18</span>  <span class="py-line"><span class="py-docstring">    @rtype:     S3Error</span> </span>
+<span class="py-lineno"> 19</span>  <span class="py-line"><span class="py-docstring">    '''</span> </span>
+<span class="py-lineno"> 20</span>  <span class="py-line">    <span class="py-name">root</span> <span class="py-op">=</span> <span class="py-name">et</span><span class="py-op">.</span><span class="py-name">fromstring</span><span class="py-op">(</span><span class="py-name">xml</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 21</span>  <span class="py-line">    <span class="py-name">code</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'Code'</span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span> </span>
+<span class="py-lineno"> 22</span>  <span class="py-line">    <span class="py-name">message</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'Message'</span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span> </span>
+<span class="py-lineno"> 23</span>  <span class="py-line">    <span class="py-name">resource_node</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'Resource'</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 24</span>  <span class="py-line">    <span class="py-keyword">if</span> <span class="py-name">resource_node</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 25</span>  <span class="py-line">        <span class="py-name">resource</span> <span class="py-op">=</span> <span class="py-name">resource_node</span><span class="py-op">.</span><span class="py-name">text</span> </span>
+<span class="py-lineno"> 26</span>  <span class="py-line">    <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 27</span>  <span class="py-line">        <span class="py-name">resource</span> <span class="py-op">=</span> <span class="py-string">''</span> </span>
+<span class="py-lineno"> 28</span>  <span class="py-line">    <span class="py-keyword">return</span> <span id="link-4" class="py-name"><a title="s3" class="py-name" href="#" onclick="doclink('link-4', 's3', 'Package s3=s3-module.html'); return false;">s3</a></span></span><span class="py-op">.</span><span id="link-5" class="py-name"><a title="s3.errors.S3Error" class="py-name" href="#" onclick="doclink('link-5', 'S3Error', 'Class s3.errors.S3Error=s3.errors.S3Error-class.html'); return false;">S3Error</a></span></span><span class="py-op">(</span><span class="py-name">code</span><span class="py-op">,</span> <span class="py-name">message</span><span class="py-op">,</span> <span class="py-name">resource</span><span class="py-op">)</span> </span>
+</div><span class="py-lineno"> 29</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 30</span>  <span class="py-line"> </span>
+<a name="parseGetBucket"></a><div id="parseGetBucket-def"><span class="py-lineno"> 31</span> <a class="py-toggle" href="#" id="parseGetBucket-toggle" onclick="toggle('parseGetBucket'); return false;">-</a><span class="py-line"><span class="py-keyword">def</span> <a class="py-def-name" href="s3.parsers-module.html#parseGetBucket">parseGetBucket</a><span class="py-op">(</span><span class="py-param">name</span><span class="py-op">,</span> <span class="py-param">xml</span><span class="py-op">,</span> <span class="py-param">connection</span><span class="py-op">,</span> <span class="py-param">default</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="parseGetBucket-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parseGetBucket-expanded"><span class="py-lineno"> 32</span>  <span class="py-line">    <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 33</span>  <span class="py-line"><span class="py-docstring">    Parse the response XML for geting a bucket</span> </span>
+<span class="py-lineno"> 34</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 35</span>  <span class="py-line"><span class="py-docstring">    @param name:       The name of the bucket</span> </span>
+<span class="py-lineno"> 36</span>  <span class="py-line"><span class="py-docstring">    @type  name:       string</span> </span>
+<span class="py-lineno"> 37</span>  <span class="py-line"><span class="py-docstring">    @param xml:        The XML response</span> </span>
+<span class="py-lineno"> 38</span>  <span class="py-line"><span class="py-docstring">    @type  xml:        string</span> </span>
+<span class="py-lineno"> 39</span>  <span class="py-line"><span class="py-docstring">    @param connection: S3Connection to the server</span> </span>
+<span class="py-lineno"> 40</span>  <span class="py-line"><span class="py-docstring">    @type  connection: S3Connection</span> </span>
+<span class="py-lineno"> 41</span>  <span class="py-line"><span class="py-docstring">    @param default:    Default return value if bucket is not found</span> </span>
+<span class="py-lineno"> 42</span>  <span class="py-line"><span class="py-docstring">    @type  default:    any</span> </span>
+<span class="py-lineno"> 43</span>  <span class="py-line"><span class="py-docstring">    @return:           Bucket if exist or default</span> </span>
+<span class="py-lineno"> 44</span>  <span class="py-line"><span class="py-docstring">    @rtype:            S3Bucket</span> </span>
+<span class="py-lineno"> 45</span>  <span class="py-line"><span class="py-docstring">    """</span> </span>
+<span class="py-lineno"> 46</span>  <span class="py-line">    <span class="py-name">root</span> <span class="py-op">=</span> <span class="py-name">et</span><span class="py-op">.</span><span class="py-name">fromstring</span><span class="py-op">(</span><span class="py-name">xml</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 47</span>  <span class="py-line">    <span class="py-name">names</span> <span class="py-op">=</span> <span class="py-op">[</span><span class="py-op">]</span> </span>
+<span class="py-lineno"> 48</span>  <span class="py-line">    <span class="py-name">buckets</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Buckets'</span> <span class="py-op">%</span> <span id="link-6" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-6', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 49</span>  <span class="py-line">    <span class="py-keyword">for</span> <span class="py-name">bucket</span> <span class="py-keyword">in</span> <span class="py-name">buckets</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 50</span>  <span class="py-line">        <span class="py-name">names</span><span class="py-op">.</span><span class="py-name">append</span><span class="py-op">(</span><span class="py-name">bucket</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Name'</span> <span class="py-op">%</span> <span id="link-7" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-7', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 51</span>  <span class="py-line">    <span class="py-keyword">if</span> <span class="py-name">name</span> <span class="py-keyword">in</span> <span class="py-name">names</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 52</span>  <span class="py-line">        <span class="py-keyword">return</span> <span id="link-8" class="py-name"><a title="s3" class="py-name" href="#" onclick="doclink('link-8', 's3', 'Package s3=s3-module.html'); return false;">s3</a></span></span><span class="py-op">.</span><span id="link-9" class="py-name"><a title="s3.objects.S3Bucket" class="py-name" href="#" onclick="doclink('link-9', 'S3Bucket', 'Class s3.objects.S3Bucket=s3.objects.S3Bucket-class.html'); return false;">S3Bucket</a></span></span><span class="py-op">(</span><span class="py-name">name</span><span class="py-op">,</span> <span id="link-10" class="py-name"><a title="s3.connection" class="py-name" href="#" onclick="doclink('link-10', 'connection', 'Module s3.connection=s3.connection-module.html'); return false;">connection</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 53</span>  <span class="py-line">    <span class="py-keyword">else</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 54</span>  <span class="py-line">        <span class="py-keyword">return</span> <span class="py-name">default</span> </span>
+</div><span class="py-lineno"> 55</span>  <span class="py-line"> </span>
+<a name="parseGetBucketNames"></a><div id="parseGetBucketNames-def"><span class="py-lineno"> 56</span> <a class="py-toggle" href="#" id="parseGetBucketNames-toggle" onclick="toggle('parseGetBucketNames'); return false;">-</a><span class="py-line"><span class="py-keyword">def</span> <a class="py-def-name" href="s3.parsers-module.html#parseGetBucketNames">parseGetBucketNames</a><span class="py-op">(</span><span class="py-param">xml</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="parseGetBucketNames-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parseGetBucketNames-expanded"><span class="py-lineno"> 57</span>  <span class="py-line">    <span class="py-docstring">"""</span> </span>
+<span class="py-lineno"> 58</span>  <span class="py-line"><span class="py-docstring">    Parse the response XML for geting a list of bucket names</span> </span>
+<span class="py-lineno"> 59</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 60</span>  <span class="py-line"><span class="py-docstring">    @param xml:        The XML response</span> </span>
+<span class="py-lineno"> 61</span>  <span class="py-line"><span class="py-docstring">    @type  xml:        string</span> </span>
+<span class="py-lineno"> 62</span>  <span class="py-line"><span class="py-docstring">    @return:           list of bucket names</span> </span>
+<span class="py-lineno"> 63</span>  <span class="py-line"><span class="py-docstring">    @rtype:            list</span> </span>
+<span class="py-lineno"> 64</span>  <span class="py-line"><span class="py-docstring">    """</span> </span>
+<span class="py-lineno"> 65</span>  <span class="py-line">    <span class="py-name">root</span> <span class="py-op">=</span> <span class="py-name">et</span><span class="py-op">.</span><span class="py-name">fromstring</span><span class="py-op">(</span><span class="py-name">xml</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 66</span>  <span class="py-line">    <span class="py-name">names</span> <span class="py-op">=</span> <span class="py-op">[</span><span class="py-op">]</span> </span>
+<span class="py-lineno"> 67</span>  <span class="py-line">    <span class="py-name">buckets</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Buckets'</span> <span class="py-op">%</span> <span id="link-11" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-11', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 68</span>  <span class="py-line">    <span class="py-keyword">for</span> <span class="py-name">bucket</span> <span class="py-keyword">in</span> <span class="py-name">buckets</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 69</span>  <span class="py-line">        <span class="py-name">names</span><span class="py-op">.</span><span class="py-name">append</span><span class="py-op">(</span><span class="py-name">bucket</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Name'</span> <span class="py-op">%</span> <span id="link-12" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-12', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 70</span>  <span class="py-line">    <span class="py-keyword">return</span> <span class="py-name">names</span> </span>
+</div><span class="py-lineno"> 71</span>  <span class="py-line"> </span>
+<span class="py-lineno"> 72</span>  <span class="py-line"> </span>
+<a name="parseListBuckets"></a><div id="parseListBuckets-def"><span class="py-lineno"> 73</span> <a class="py-toggle" href="#" id="parseListBuckets-toggle" onclick="toggle('parseListBuckets'); return false;">-</a><span class="py-line"><span class="py-keyword">def</span> <a class="py-def-name" href="s3.parsers-module.html#parseListBuckets">parseListBuckets</a><span class="py-op">(</span><span class="py-param">xml</span><span class="py-op">,</span> <span class="py-param">connection</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="parseListBuckets-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parseListBuckets-expanded"><span class="py-lineno"> 74</span>  <span class="py-line">    <span class="py-docstring">'''Parse the response XML for listing buckets</span> </span>
+<span class="py-lineno"> 75</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 76</span>  <span class="py-line"><span class="py-docstring">    @param xml:        The XML response</span> </span>
+<span class="py-lineno"> 77</span>  <span class="py-line"><span class="py-docstring">    @type  xml:        string</span> </span>
+<span class="py-lineno"> 78</span>  <span class="py-line"><span class="py-docstring">    @param connection: S3Connection to the server</span> </span>
+<span class="py-lineno"> 79</span>  <span class="py-line"><span class="py-docstring">    @type  connection: S3Connection</span> </span>
+<span class="py-lineno"> 80</span>  <span class="py-line"><span class="py-docstring">    @return:           List of buckets</span> </span>
+<span class="py-lineno"> 81</span>  <span class="py-line"><span class="py-docstring">    @rtype:            list</span> </span>
+<span class="py-lineno"> 82</span>  <span class="py-line"><span class="py-docstring">    '''</span> </span>
+<span class="py-lineno"> 83</span>  <span class="py-line">    <span class="py-name">root</span> <span class="py-op">=</span> <span class="py-name">et</span><span class="py-op">.</span><span class="py-name">fromstring</span><span class="py-op">(</span><span class="py-name">xml</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 84</span>  <span class="py-line">    <span class="py-name">buckets_list</span> <span class="py-op">=</span> <span class="py-op">[</span><span class="py-op">]</span> </span>
+<span class="py-lineno"> 85</span>  <span class="py-line">    <span class="py-name">buckets</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Buckets'</span> <span class="py-op">%</span> <span id="link-13" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-13', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 86</span>  <span class="py-line">    <span class="py-keyword">for</span> <span class="py-name">bucket</span> <span class="py-keyword">in</span> <span class="py-name">buckets</span><span class="py-op">:</span> </span>
+<span class="py-lineno"> 87</span>  <span class="py-line">        <span class="py-name">buckets_list</span><span class="py-op">.</span><span class="py-name">append</span><span class="py-op">(</span><span id="link-14" class="py-name"><a title="s3" class="py-name" href="#" onclick="doclink('link-14', 's3', 'Package s3=s3-module.html'); return false;">s3</a></span></span><span class="py-op">.</span><span id="link-15" class="py-name"><a title="s3.objects.S3Bucket" class="py-name" href="#" onclick="doclink('link-15', 'S3Bucket', 'Class s3.objects.S3Bucket=s3.objects.S3Bucket-class.html'); return false;">S3Bucket</a></span></span><span class="py-op">(</span><span class="py-name">bucket</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Name'</span> <span class="py-op">%</span> <span id="link-16" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-16', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span><span class="py-op">,</span> <span id="link-17" class="py-name"><a title="s3.connection" class="py-name" href="#" onclick="doclink('link-17', 'connection', 'Module s3.connection=s3.connection-module.html'); return false;">connection</a></span></span><span class="py-op">)</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 88</span>  <span class="py-line">    <span class="py-keyword">return</span> <span class="py-name">buckets_list</span> </span>
+</div><span class="py-lineno"> 89</span>  <span class="py-line">         </span>
+<a name="parseListKeys"></a><div id="parseListKeys-def"><span class="py-lineno"> 90</span> <a class="py-toggle" href="#" id="parseListKeys-toggle" onclick="toggle('parseListKeys'); return false;">-</a><span class="py-line"><span class="py-keyword">def</span> <a class="py-def-name" href="s3.parsers-module.html#parseListKeys">parseListKeys</a><span class="py-op">(</span><span class="py-param">xml</span><span class="py-op">)</span><span class="py-op">:</span> </span>
+</div><div id="parseListKeys-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parseListKeys-expanded"><span class="py-lineno"> 91</span>  <span class="py-line">    <span class="py-docstring">'''Parse the response XML for listing objects in bucket</span> </span>
+<span class="py-lineno"> 92</span>  <span class="py-line"><span class="py-docstring">    </span> </span>
+<span class="py-lineno"> 93</span>  <span class="py-line"><span class="py-docstring">    @param xml:    The XML response</span> </span>
+<span class="py-lineno"> 94</span>  <span class="py-line"><span class="py-docstring">    @type  xml:    string</span> </span>
+<span class="py-lineno"> 95</span>  <span class="py-line"><span class="py-docstring">    @return:       List of object keys</span> </span>
+<span class="py-lineno"> 96</span>  <span class="py-line"><span class="py-docstring">    @rtype:        list</span> </span>
+<span class="py-lineno"> 97</span>  <span class="py-line"><span class="py-docstring">    '''</span> </span>
+<span class="py-lineno"> 98</span>  <span class="py-line">    <span class="py-name">root</span> <span class="py-op">=</span> <span class="py-name">et</span><span class="py-op">.</span><span class="py-name">fromstring</span><span class="py-op">(</span><span class="py-name">xml</span><span class="py-op">)</span> </span>
+<span class="py-lineno"> 99</span>  <span class="py-line">    <span id="link-18" class="py-name"><a title="s3.objects.S3Bucket.keys
+s3.service.S3Service.keys" class="py-name" href="#" onclick="doclink('link-18', 'keys', 'Method s3.objects.S3Bucket.keys()=s3.objects.S3Bucket-class.html#keys,Method s3.service.S3Service.keys()=s3.service.S3Service-class.html#keys'); return false;">keys</a></span></span> <span class="py-op">=</span> <span class="py-op">[</span><span class="py-op">]</span> </span>
+<span class="py-lineno">100</span>  <span class="py-line">    <span class="py-name">contents</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">findall</span><span class="py-op">(</span><span class="py-string">'{%s}Contents'</span> <span class="py-op">%</span> <span id="link-19" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-19', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno">101</span>  <span class="py-line">    <span class="py-keyword">for</span> <span class="py-name">obj</span> <span class="py-keyword">in</span> <span class="py-name">contents</span><span class="py-op">:</span> </span>
+<span class="py-lineno">102</span>  <span class="py-line">        <span id="link-20" class="py-name"><a title="s3.objects.S3Bucket.keys
+s3.service.S3Service.keys" class="py-name" href="#" onclick="doclink('link-20', 'keys', 'Method s3.objects.S3Bucket.keys()=s3.objects.S3Bucket-class.html#keys,Method s3.service.S3Service.keys()=s3.service.S3Service-class.html#keys'); return false;">keys</a></span></span><span class="py-op">.</span><span class="py-name">append</span><span class="py-op">(</span><span class="py-name">obj</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Key'</span> <span class="py-op">%</span> <span id="link-21" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-21', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span><span class="py-op">)</span> </span>
+<span class="py-lineno">103</span>  <span class="py-line">    <span class="py-name">prefixes</span> <span class="py-op">=</span> <span class="py-name">root</span><span class="py-op">.</span><span class="py-name">findall</span><span class="py-op">(</span><span class="py-string">'{%s}CommonPrefixes'</span> <span class="py-op">%</span> <span id="link-22" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-22', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span> </span>
+<span class="py-lineno">104</span>  <span class="py-line">    <span class="py-keyword">for</span> <span class="py-name">prefix</span> <span class="py-keyword">in</span> <span class="py-name">prefixes</span><span class="py-op">:</span> </span>
+<span class="py-lineno">105</span>  <span class="py-line">        <span id="link-23" class="py-name"><a title="s3.objects.S3Bucket.keys
+s3.service.S3Service.keys" class="py-name" href="#" onclick="doclink('link-23', 'keys', 'Method s3.objects.S3Bucket.keys()=s3.objects.S3Bucket-class.html#keys,Method s3.service.S3Service.keys()=s3.service.S3Service-class.html#keys'); return false;">keys</a></span></span><span class="py-op">.</span><span class="py-name">append</span><span class="py-op">(</span><span class="py-name">prefix</span><span class="py-op">.</span><span class="py-name">find</span><span class="py-op">(</span><span class="py-string">'{%s}Prefix'</span> <span class="py-op">%</span> <span id="link-24" class="py-name"><a title="s3.parsers.xmlns" class="py-name" href="#" onclick="doclink('link-24', 'xmlns', 'Variable s3.parsers.xmlns=s3.parsers-module.html#xmlns'); return false;">xmlns</a></span></span><span class="py-op">)</span><span class="py-op">.</span><span class="py-name">text</span><span class="py-op">)</span> </span>
+<span class="py-lineno">106</span>  <span class="py-line">    <span class="py-keyword">return</span> <span id="link-25" class="py-name"><a title="s3.objects.S3Bucket.keys
+s3.service.S3Service.keys" class="py-name" href="#" onclick="doclink('link-25', 'keys', 'Method s3.objects.S3Bucket.keys()=s3.objects.S3Bucket-class.html#keys,Method s3.service.S3Service.keys()=s3.service.S3Service-class.html#keys'); return false;">keys</a></span></span> </span>
+</div><span class="py-lineno">107</span>  <span class="py-line"> </span><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="s3-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha3 on Tue Aug 29 17:36:24 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
