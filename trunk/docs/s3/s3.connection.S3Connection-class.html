@@ -45,7 +45,7 @@
     <td>
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
-        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
     onclick="toggle_private();">hide private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
@@ -58,13 +58,13 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class S3Connection</h1><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection">source&nbsp;code</a></span><br /><br />
 <center>
-<center>  <map id="uml_class_diagram_for_classdoc" name="uml_class_diagram_for_classdoc">
-<area shape="rect" href="s3.connection.S3Connection&#45;class.html#clone" title="s3.connection.S3Connection.clone" alt="" coords="19,38,584,56" />
-<area shape="rect" href="s3.connection.S3Connection&#45;class.html#__getattr__" title="s3.connection.S3Connection.__getattr__" alt="" coords="19,56,584,75" />
-<area shape="rect" href="s3.connection.S3Connection&#45;class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="19,75,584,94" />
-<area shape="rect" href="s3.connection.S3Connection&#45;class.html" title="s3.connection.S3Connection" alt="" coords="7,7,596,100" />
+<center>  <map id="uml_class_diagram_for_s3_conne" name="uml_class_diagram_for_s3_conne">
+<area shape="rect" href="s3.connection.S3Connection&#45;class.html#clone" title="Returns  new connection to s3..." alt="" coords="19,38,595,56" />
+<area shape="rect" href="s3.connection.S3Connection&#45;class.html#__getattr__" title="s3.connection.S3Connection.__getattr__" alt="" coords="19,56,595,75" />
+<area shape="rect" href="s3.connection.S3Connection&#45;class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="19,75,595,94" />
+<area shape="rect" href="s3.connection.S3Connection&#45;class.html" title="s3.connection.S3Connection" alt="" coords="7,7,607,100" />
 </map>
-  <img src="uml_class_diagram_for_classdoc.gif" alt='' usemap="#uml_class_diagram_for_classdoc" ismap="ismap" class="graph-without-title">
+  <img src="uml_class_diagram_for_s3_conne.gif" alt='' usemap="#uml_class_diagram_for_s3_conne" ismap="ismap" class="graph-without-title">
 </center></center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -86,13 +86,13 @@
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pub_key</span>,
         <span class="summary-sig-arg">priv_key</span>,
         <span class="summary-sig-arg">secure</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">host</span>=<span class="summary-sig-default">s3.DEFAULT_HOST</span>,
+        <span class="summary-sig-arg">host</span>=<span class="summary-sig-default">&quot;s3.amazonaws.com&quot;</span>,
         <span class="summary-sig-arg">port</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">debug</span>=<span class="summary-sig-default">0</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for 
@@ -101,7 +101,7 @@
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_set_debug" class="summary-sig-name">_set_debug</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">debug</span>)</span>
@@ -109,14 +109,16 @@
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
-    <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#clone" class="summary-sig-name">clone</a>(<span class="summary-sig-arg">C</span>)</span>
+    <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#clone" class="summary-sig-name">clone</a>(<span class="summary-sig-arg">C</span>)</span><br />
+      Returns
+new connection to s3...
   </td>
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_auth_header_value" class="summary-sig-name">_auth_header_value</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">method</span>,
@@ -126,7 +128,7 @@
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_headers" class="summary-sig-name">_headers</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">method</span>,
@@ -137,7 +139,7 @@
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_params" class="summary-sig-name">_params</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">params</span>)</span>
@@ -145,7 +147,7 @@
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_path" class="summary-sig-name">_path</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">bucket</span>=<span class="summary-sig-default">None</span>,
@@ -154,7 +156,7 @@
 </tr>
 <tr class="private">
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#_io_len" class="summary-sig-name">_io_len</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">io</span>)</span>
@@ -162,7 +164,7 @@
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.connection.S3Connection-class.html#__getattr__" class="summary-sig-name">__getattr__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">attr</span>)</span>
@@ -242,17 +244,17 @@
         <span class="sig-arg">pub_key</span>,
         <span class="sig-arg">priv_key</span>,
         <span class="sig-arg">secure</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">host</span>=<span class="sig-default">s3.DEFAULT_HOST</span>,
+        <span class="sig-arg">host</span>=<span class="sig-default">&quot;s3.amazonaws.com&quot;</span>,
         <span class="sig-arg">port</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">debug</span>=<span class="sig-default">0</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.__init__">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  <br />x.__init__(...) initializes x; see x.__class__.__doc__ for 
   signature
   <dl><dt></dt><dd>
     <dl><dt>Overrides:
@@ -273,11 +275,11 @@
         <span class="sig-arg">debug</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._set_debug">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._set_debug">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -292,8 +294,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">clone</span>(<span class="sig-arg">C</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.clone">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.clone">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
   
@@ -319,11 +321,11 @@ new connection to s3
         <span class="sig-arg">headers</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._auth_header_value">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._auth_header_value">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -342,11 +344,11 @@ new connection to s3
         <span class="sig-arg">headers</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._headers">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._headers">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -362,11 +364,11 @@ new connection to s3
         <span class="sig-arg">params</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._params">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._params">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -383,11 +385,11 @@ new connection to s3
         <span class="sig-arg">obj</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._path">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._path">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -403,11 +405,11 @@ new connection to s3
         <span class="sig-arg">io</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._io_len">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection._io_len">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -424,11 +426,11 @@ new connection to s3
     <br /><em class="fname">(Qualification operator)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.__getattr__">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.connection-pysrc.html#S3Connection.__getattr__">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  None
+  
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -460,7 +462,7 @@ new connection to s3
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">Generated by Epydoc
-        3.0alpha3 on Tue Aug 29 17:36:18 2006</td>
+        3.0alpha3 on Wed Sep 20 12:10:43 2006</td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
