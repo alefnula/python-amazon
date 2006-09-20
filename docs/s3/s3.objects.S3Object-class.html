@@ -45,7 +45,7 @@
     <td>
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
-        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
     onclick="toggle_private();">hide private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
@@ -58,14 +58,16 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class S3Object</h1><span class="codelink"><a href="s3.objects-pysrc.html#S3Object">source&nbsp;code</a></span><br /><br />
 <center>
-<center>  <map id="uml_class_diagram_for_classdoc_5" name="uml_class_diagram_for_classdoc_5">
-<area shape="rect" href="s3.objects.S3Object&#45;class.html#get_meta_for_headers" title="Returns a dictionary of metadata keys prepared for inserting them into  headers." alt="" coords="19,37,437,56" />
-<area shape="rect" href="s3.objects.S3Object&#45;class.html#save" title="Save a modified (or same) S3Object to the bucket associated with it." alt="" coords="19,56,437,75" />
-<area shape="rect" href="s3.objects.S3Object&#45;class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="19,75,437,93" />
-<area shape="rect" href="s3.objects.S3Object&#45;class.html#delete" title="Deletes an S3Object from the bucket." alt="" coords="19,93,437,112" />
-<area shape="rect" href="s3.objects.S3Object&#45;class.html" title="s3.objects.S3Object" alt="" coords="7,7,449,119" />
+<center>  <map id="uml_class_diagram_for_s3_objec_2" name="uml_class_diagram_for_s3_objec_2">
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#__str__" title="str(x)" alt="" coords="19,38,437,56" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#get_meta_for_headers" title="Returns a dictionary of metadata keys prepared for inserting them into  headers." alt="" coords="19,56,437,75" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#__repr__" title="repr(x)" alt="" coords="19,75,437,94" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#save" title="Save a modified (or same) S3Object to the bucket associated with it." alt="" coords="19,94,437,112" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="19,112,437,131" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html#delete" title="Deletes an S3Object from the bucket." alt="" coords="19,131,437,150" />
+<area shape="rect" href="s3.objects.S3Object&#45;class.html" title="s3.objects.S3Object" alt="" coords="7,7,449,156" />
 </map>
-  <img src="uml_class_diagram_for_classdoc_5.gif" alt='' usemap="#uml_class_diagram_for_classdoc_5" ismap="ismap" class="graph-without-title">
+  <img src="uml_class_diagram_for_s3_objec_2.gif" alt='' usemap="#uml_class_diagram_for_s3_objec_2" ismap="ismap" class="graph-without-title">
 </center></center>
 <hr />
 S3Object class<br /><br />
@@ -89,7 +91,7 @@ S3Object class<br /><br />
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.objects.S3Object-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">key</span>,
@@ -103,7 +105,23 @@ S3Object class<br /><br />
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.objects.S3Object-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      repr(x)
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <span class="summary-type">&nbsp;</span>
+  </td><td class="summary">
+    <span class="summary-sig"><a href="s3.objects.S3Object-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      str(x)
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="summary">
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.objects.S3Object-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Save a modified (or same) S3Object to the bucket associated with 
@@ -112,7 +130,7 @@ S3Object class<br /><br />
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.objects.S3Object-class.html#delete" class="summary-sig-name">delete</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Deletes an S3Object from the bucket.
@@ -120,7 +138,7 @@ S3Object class<br /><br />
 </tr>
 <tr>
   <td width="15%" align="right" valign="top" class="summary">
-    <code class="summary-type">&nbsp;</code>
+    <span class="summary-type">&nbsp;</span>
   </td><td class="summary">
     <span class="summary-sig"><a href="s3.objects.S3Object-class.html#get_meta_for_headers" class="summary-sig-name">get_meta_for_headers</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Returns a dictionary of metadata keys prepared for inserting them 
@@ -136,9 +154,7 @@ S3Object class<br /><br />
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__setattr__</code>
       </p>
     </td>
   </tr>
@@ -206,15 +222,63 @@ S3Object class<br /><br />
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.__init__">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  <br />x.__init__(...) initializes x; see x.__class__.__doc__ for 
   signature
   <dl><dt></dt><dd>
     <dl><dt>Overrides:
       object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <br />repr(x)
+  <dl><dt></dt><dd>
+    <dl><dt>Overrides:
+      object.__repr__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt></dl>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <br />str(x)
+  <dl><dt></dt><dd>
+    <dl><dt>Overrides:
+      object.__str__
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt></dl>
   </dd></dl>
@@ -230,11 +294,11 @@ S3Object class<br /><br />
   <h3 class="epydoc"><span class="sig"><span class="sig-name">save</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.save">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.save">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  Save a modified (or same) S3Object to the bucket associated with 
+  <br />Save a modified (or same) S3Object to the bucket associated with 
   it.
   <dl><dt></dt><dd>
   </dd></dl>
@@ -250,11 +314,11 @@ S3Object class<br /><br />
   <h3 class="epydoc"><span class="sig"><span class="sig-name">delete</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.delete">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.delete">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  Deletes an S3Object from the bucket.
+  <br />Deletes an S3Object from the bucket.
   <dl><dt></dt><dd>
   </dd></dl>
 </td></tr></table>
@@ -269,11 +333,11 @@ S3Object class<br /><br />
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_meta_for_headers</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.get_meta_for_headers">source&nbsp;code</a></span>&nbsp;</span
-    ></td>
+    ><span class="codelink"><a href="s3.objects-pysrc.html#S3Object.get_meta_for_headers">source&nbsp;code</a></span>&nbsp;
+    </td>
   </table>
   
-  Returns a dictionary of metadata keys prepared for inserting them into
+  <br />Returns a dictionary of metadata keys prepared for inserting them into
   headers.
   <dl><dt></dt><dd>
   </dd></dl>
@@ -306,7 +370,7 @@ S3Object class<br /><br />
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">Generated by Epydoc
-        3.0alpha3 on Tue Aug 29 17:36:23 2006</td>
+        3.0alpha3 on Wed Sep 20 12:10:43 2006</td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>

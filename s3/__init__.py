@@ -3,10 +3,6 @@ s3: a set of classes for interacting with amazon's s3.
 
 The aim of this library is to try to export all of the s3
 functionality while staying true to python's feel.
-
-Hopefully, usage should be pretty straight forward. I'd suggest
-looking over the test code in test.py, and then look at the doc
-strings in the methods of the classes of S3Service and S3Bucket.
 """
 
 VERSION = '2006-03-01'

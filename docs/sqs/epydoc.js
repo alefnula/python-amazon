@@ -103,13 +103,13 @@ function collapse(id) {
     
     var indent = elt.getAttribute("indent");
     var pad = elt.getAttribute("pad");
-    var s = "<span class='py-lineno'>";
+    var s = "<tt class='py-lineno'>";
     for (var i=0; i<pad.length; i++) { s += "&nbsp;" }
-    s += "</span>";
-    s += "&nbsp;&nbsp;<span class='py-line'>";
+    s += "</tt>";
+    s += "&nbsp;&nbsp;<tt class='py-line'>";
     for (var i=0; i<indent.length; i++) { s += "&nbsp;" }
     s += "<a href='#' onclick='expand(\"" + id;
-    s += "\");return false'>...</a></span><br />";
+    s += "\");return false'>...</a></tt><br />";
     elt.innerHTML = s;
   }
 }
@@ -120,7 +120,9 @@ function toggle(id) {
       collapse(id); 
   else
       expand(id);
+  return false;
 }
+
 function highlight(id) {
   var elt = document.getElementById(id+"-def");
   if (elt) elt.className = "py-highlight-hdr";
@@ -172,17 +174,18 @@ function expandto(href) {
 }
 
 function kill_doclink(id) {
-  if (id) {
-    var parent = document.getElementById(id);
-    parent.removeChild(parent.childNodes.item(0));
-  }
-  else if (!this.contains(event.toElement)) {
+  var parent = document.getElementById(id);
+  parent.removeChild(parent.childNodes.item(0));
+}
+function auto_kill_doclink(ev) {
+  if (!ev) var ev = window.event;
+  if (!this.contains(ev.toElement)) {
     var parent = document.getElementById(this.parentID);
     parent.removeChild(parent.childNodes.item(0));
   }
 }
 
-function doclink(id, name, targets) {
+function doclink(id, name, targets_id) {
   var elt = document.getElementById(id);
 
   // If we already opened the box, then destroy it.
@@ -214,9 +217,12 @@ function doclink(id, name, targets) {
     box2.style.background = "white";
     box2.style.padding = ".3em .4em .3em .4em";
     box2.style.fontStyle = "normal";
-    box2.onmouseout=kill_doclink;
+    box2.onmouseout=auto_kill_doclink;
     box2.parentID = id;
 
+    // Get the targets
+    var targets_elt = document.getElementById(targets_id);
+    var targets = targets_elt.getAttribute("targets");
     var links = "";
     target_list = targets.split(",");
     for (var i=0; i<target_list.length; i++) {
@@ -239,5 +245,6 @@ function doclink(id, name, targets) {
         "onclick='kill_doclink(\""+id+"\");return false;'>"+
         "<i>None of the above</i></a></li></ul>";
   }
+  return false;
 }
 
