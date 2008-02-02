@@ -63,8 +63,7 @@ class S3Bucket(object):
 
     def _request(self, method='', obj=None, send_io=None, params=None, headers=None, *args):
         return getattr(self._s3_conn.clone(), method)(self.name, obj, send_io=send_io,
-                                              params=params, headers=headers,
-                                              *args)
+                                              params=params, headers=headers, *args)
 
     def __str__(self):
         return self.name
@@ -73,7 +72,7 @@ class S3Bucket(object):
         return self.name
 
 
-    def get(self, key, headers={}):
+    def get(self, key, headers=None):
         """
         Get an S3Object from the bucket.
         
@@ -84,6 +83,8 @@ class S3Bucket(object):
         @return:        Selected S3Object if found or None
         @rtype:         S3Object
         """
+        if headers is None:
+            headers = {}
         response = self._request('GET', key, headers=headers)
         headers = response.getheaders()
         data = response.read()
@@ -97,7 +98,7 @@ class S3Bucket(object):
         return S3Object(key, data, metadata, last_modified, self)
 
 
-    def head(self, key, headers={}):
+    def head(self, key, headers=None):
         """
         Get an object's headers from bucket.
 
@@ -108,6 +109,8 @@ class S3Bucket(object):
         @return:        Dictionary of object headers
         @rtype:         dict
         """
+        if headers is None:
+            headers = {}
         return dict(self._request('HEAD', key, headers=headers).getheaders())
 
 
@@ -144,7 +147,7 @@ class S3Bucket(object):
         return objects
 
 
-    def save(self, s3object, headers={}):
+    def save(self, s3object, headers=None):
         """
         Save an S3Object into bucket.
         
@@ -156,6 +159,8 @@ class S3Bucket(object):
         data = s3object.data
         if isinstance(data, str) or isinstance(data, unicode):
             data = StringIO(data)
+        if headers is None:
+            headers = {}
         for key in s3object.metadata:
             headers['x-amz-meta-' + key] = s3object.metadata[key]
         self._request('PUT', s3object.key, send_io=data, headers=headers)
