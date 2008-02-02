@@ -154,7 +154,7 @@ class S3Generator(object):
         return self.protocol + '://' + self.server_name + path + arg_div + query_part
 
 
-    def create_bucket(self, name, headers={}):
+    def create_bucket(self, name, headers=None):
         """
         Create a bucket.
         
@@ -165,9 +165,11 @@ class S3Generator(object):
         @return:        Authenticated URL for creating a bucket
         @rtype:         string
         """
+        if headers is None:
+            headers = {}
         return self._generate('PUT', bucket=name, headers=headers)
 
-    def list_bucket(self, name, params={}, headers={}):
+    def list_bucket(self, name, params=None, headers=None):
         """
         List a bucket's content.
         
@@ -180,9 +182,13 @@ class S3Generator(object):
         @return:        Authenticated URL for listing bucket's content
         @rtype:         string
         """
+        if params is None:
+            params = {}
+        if headers is None:
+            headers = {}
         return self._generate('GET', bucket=name, params=params, headers=headers)
 
-    def delete_bucket(self, name, headers={}):
+    def delete_bucket(self, name, headers=None):
         """
         Delete a bucket.
         
@@ -193,9 +199,11 @@ class S3Generator(object):
         @return:        Authenticated URL for delete a bucket
         @rtype:         string
         """
+        if headers is None:
+            headers = {}
         return self._generate('DELETE', bucket=name, headers=headers)
 
-    def list_buckets(self, headers={}):
+    def list_buckets(self, headers=None):
         """
         List all buckets
         
@@ -204,20 +212,28 @@ class S3Generator(object):
         @return:        Authenticated URL for listing all buckets
         @rtype:         string
         """
+        if headers is None:
+            headers = {}
         return self._generate('GET', headers=headers)
 
 
-    def put(self, bucket, key, obj, headers={}):
+    def put(self, bucket, key, obj, headers=None):
+        if headers is None:
+            headers = {}
         headers.update(obj.get_meta_for_headers())
         return self._generate('PUT', bucket=bucket, key=key, headers=headers)
 
-    def get(self, bucket, key, headers={}):
+    def get(self, bucket, key, headers=None):
+        if headers is None:
+            headers = {}
         return self._generate('GET', bucket=bucket, key=key, headers=headers)
 
-    def delete(self, bucket, key, headers={}):
+    def delete(self, bucket, key, headers=None):
+        if headers is None:
+            headers = {}
         return self._generate('DELETE', bucket=bucket, key=key, headers=headers)
 
-    def get_bucket_acl(self, name, headers={}):
+    def get_bucket_acl(self, name, headers=None):
         """
         Get acl information for a bucket.
         
@@ -228,9 +244,11 @@ class S3Generator(object):
         @return:        Authenticated URL for getting acl information for a bucket
         @rtype:         string
         """
+        if headers is None:
+            headers = {}
         return self.get_acl(name, None, headers)
 
-    def get_acl(self, bucket, key=None, headers={}):
+    def get_acl(self, bucket, key=None, headers=None):
         """
         Get acl information for an object.
         
@@ -242,11 +260,17 @@ class S3Generator(object):
         @type  headers: dict
         @return:        Authenticated URL for getting acl information for an object
         """
+        if headers is None:
+            headers = {}
         return self._generate('GET', acl=True, bucket=bucket, key=key, headers=headers)
 
-    def put_bucket_acl(self, name, acl_xml_document, headers={}):
+    def put_bucket_acl(self, name, acl_xml_document, headers=None):
+        if headers is None:
+            headers = {}
         return self.put_acl(name, '', acl_xml_document, headers)
 
     # don't really care what the doc is here.
-    def put_acl(self, bucket, key, acl_xml_document, headers={}):
+    def put_acl(self, bucket, key, acl_xml_document, headers=None):
+        if headers is None:
+            headers = {}
         return self._generate('PUT', acl=True, bucket=bucket, key=key, headers=headers)
