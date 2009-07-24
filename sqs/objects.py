@@ -1,8 +1,7 @@
-import xml
 import urlparse
+from StringIO import StringIO
 from sqs.errors import SQSError
 from sqs.parsers import parseTimeout, parseMessageCreate, parseMessageRead, parseMessagesRead
-from StringIO import StringIO
 
 
 class SQSMessage(object):
@@ -13,7 +12,7 @@ class SQSMessage(object):
 
     def __len__(self):
         return len(self._body)
-    
+
     def __str__(self):
         return self._body
 

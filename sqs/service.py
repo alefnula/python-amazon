@@ -1,6 +1,7 @@
-from sqs.connection import SQSConnection
 from sqs.objects import SQSQueue
+from sqs.connection import SQSConnection
 from sqs.parsers import parseQueueList, parseQueueCreation
+
 
 class SQSService(object):
     """

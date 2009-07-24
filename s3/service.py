@@ -1,6 +1,7 @@
-from s3.connection import S3Connection
 from s3.objects import S3Bucket
+from s3.connection import S3Connection
 from s3.parsers import parseListBuckets, parseGetBucket, parseGetBucketNames
+
 
 class S3Service(object):
     """

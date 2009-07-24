@@ -1,10 +1,10 @@
-from sqs.errors import SQSError
 import sqs
+from sqs.errors import SQSError
 
 try:
-    import cElementTree as et
+    from xml.etree import cElementTree as et
 except:
-    from elementtree import ElementTree as et
+    from xml.etree import ElementTree as et
 
 xmlns = "http://queue.amazonaws.com/doc/" + sqs.VERSION + '/'
 
