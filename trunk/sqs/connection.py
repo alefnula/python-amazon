@@ -131,7 +131,7 @@ class SQSConnection(object):
                     retry = True
             if retry:
                 do_conn()
-                
+
             if send_io is not None:
                 data = send_io.read(httplib.MAXAMOUNT)
                 while len(data) > 0:

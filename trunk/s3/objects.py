@@ -2,6 +2,7 @@ from StringIO import StringIO
 from s3.errors import S3Error
 from s3.parsers import parseListKeys
 
+
 class S3Object(object):
     """
     S3Object class

@@ -1,9 +1,8 @@
-try:
-    import cElementTree as et
-except:
-    from elementtree import ElementTree as et
-
 import s3
+try:
+    from xml.etree import cElementTree as et
+except:
+    from xml.etree import ElementTree as et
 
 
 xmlns = 'http://s3.amazonaws.com/doc/' + s3.VERSION + '/'
